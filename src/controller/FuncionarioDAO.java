@@ -6,9 +6,13 @@ package controller;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import jdbc.ConnectionFactory;
+import model.Cliente;
 import model.Funcionario;
 
 /**
@@ -27,8 +31,9 @@ public class FuncionarioDAO {
     public void cadastrarFuncionario(Funcionario funcionario) {
         
         try {
-            String sql = "insert into tb_clientes (nome, sobrenome, email, senha, cargo, nivel_acesso, celular) "
-                            + "values (?, ?, ?, ?, ?, ?, ?)";
+            String sql = "insert into tb_funcionarios "
+                    + "(nome, sobrenome, email, senha, cargo, acesso, celular) "
+                    + "values (?, ?, ?, ?, ?, ?, ?)";
             
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setString(1, funcionario.getNome());
@@ -43,10 +48,49 @@ public class FuncionarioDAO {
                 stmt.close();
             }
             
-            JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso");
+            JOptionPane.showMessageDialog(null, "Funcionário cadastrado com sucesso");
             
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "Erro: " + erro);
+        }
+        
+    }
+    
+    //Atualizar
+    
+    
+    //Excluir
+    
+    //Listar
+    public List<Funcionario> listarFuncionarios() {
+        
+        try {
+            List<Funcionario> funcionarios = new ArrayList<>();
+
+            String sql = "select * from tb_funcionarios";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Funcionario funcionario = new Funcionario();
+
+                funcionario.setId(rs.getInt("id"));
+                funcionario.setNome(rs.getString("nome"));
+                funcionario.setSobrenome(rs.getString("sobrenome"));
+                funcionario.setEmail(rs.getString("email"));
+                funcionario.setSenha(rs.getString("senha"));
+                funcionario.setCargo(rs.getString("cargo"));
+                funcionario.setAcesso(rs.getString("acesso"));
+                funcionario.setCelular(rs.getString("celular"));
+
+                funcionarios.add(funcionario);
+            }
+
+            return funcionarios;
+
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "Erro: " + erro);
+            return null;
         }
         
     }

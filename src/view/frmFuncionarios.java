@@ -21,27 +21,21 @@ public class frmFuncionarios extends javax.swing.JFrame {
     
     public void listar() {
 
-        ClienteDAO dao = new ClienteDAO();
-        List<Cliente> clientes = dao.listarClientes();
+        FuncionarioDAO dao = new FuncionarioDAO();
+        List<Funcionario> funcionarios = dao.listarFuncionarios();
         DefaultTableModel dados = (DefaultTableModel) tabelaFuncionarios.getModel();
         dados.setNumRows(0);
         
-        for (Cliente c : clientes) {
+        for (Funcionario f : funcionarios) {
             dados.addRow(new Object[] {
-                c.getId(),
-                c.getNome(),
-                c.getSobrenome(),
-                c.getRg(),
-                c.getCpf(),
-                c.getEmail(),
-                c.getCelular(),
-                c.getCep(),
-                c.getEndereco(),
-                c.getNumero(),
-                c.getComplemento(),
-                c.getBairro(),
-                c.getCidade(),
-                c.getUf() 
+                f.getId(),
+                f.getNome(),
+                f.getSobrenome(),
+                f.getEmail(),
+                f.getCargo(),
+                f.getAcesso(),
+                f.getCelular(),
+
             });
         }
         
@@ -345,7 +339,7 @@ public class frmFuncionarios extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Nome", "Sobrenome", "E-mail", "Celular", "Cargo", "Senha", "Nível_Acesso"
+                "Código", "Nome", "Sobrenome", "E-mail", "Cargo", "Nível de Acesso", "Celular"
             }
         ));
         tabelaFuncionarios.addMouseListener(new java.awt.event.MouseAdapter() {

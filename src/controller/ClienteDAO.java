@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import jdbc.ConnectionFactory;
 
 import model.Cliente;
+import model.WebServiceCep;
 
 /**
  *
@@ -232,6 +233,26 @@ public class ClienteDAO {
 
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "Cliente não encontrado!");
+            return null;
+        }
+
+    }
+    
+    public Cliente buscaCep(String cep) {
+
+        WebServiceCep webServiceCep = WebServiceCep.searchCep(cep);
+
+        Cliente cliente = new Cliente();
+
+        if (webServiceCep.wasSuccessful()) {
+            cliente.setEndereco(webServiceCep.getLogradouroFull());
+            cliente.setCidade(webServiceCep.getCidade());
+            cliente.setBairro(webServiceCep.getBairro());
+            cliente.setUf(webServiceCep.getUf());
+            return cliente;
+        } else {
+            JOptionPane.showMessageDialog(null, "Erro numero: " + webServiceCep.getResulCode());
+            JOptionPane.showMessageDialog(null, "Descri��o do erro: " + webServiceCep.getResultText());
             return null;
         }
 

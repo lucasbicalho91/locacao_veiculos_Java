@@ -5,6 +5,7 @@
 package view;
 
 import controller.ClienteDAO;
+import java.awt.event.KeyEvent;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -172,6 +173,11 @@ public class frmClientes extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         txtcep.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtcep.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtcepKeyPressed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setText("Endereço:");
@@ -724,6 +730,24 @@ public class frmClientes extends javax.swing.JFrame {
         // limpar os campos
         new Utils().limparCampos(painel_dados); 
     }//GEN-LAST:event_btnnovoActionPerformed
+
+    private void txtcepKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcepKeyPressed
+        
+            //Programacao do keypress
+    if (evt.getKeyCode () == KeyEvent.VK_ENTER) { 
+         Cliente obj = new Cliente();
+        ClienteDAO dao = new ClienteDAO();
+        obj = dao.buscaCep(txtcep.getText());
+
+        txtendereco.setText(obj.getEndereco());
+        txtbairro.setText(obj.getBairro());
+        txtcidade.setText(obj.getCidade());
+        cbuf.setSelectedItem(obj.getUf());
+        System.out.println(obj.getUf());
+
+    }
+        
+    }//GEN-LAST:event_txtcepKeyPressed
 
     /**
      * @param args the command line arguments

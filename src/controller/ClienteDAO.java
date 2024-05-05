@@ -30,7 +30,7 @@ public class ClienteDAO {
     
     //Incluir
     public void cadastrarCliente(Cliente cliente) {
-        
+
         try {
             String sql = "insert into tb_clientes (nome, sobrenome, rg, cpf, email, celular, cep, endereco,"
                             + "numero, complemento, bairro, cidade, uf) "

@@ -13,6 +13,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import jdbc.ConnectionFactory;
 import model.Funcionario;
+import view.FrmMenu;
 
 /**
  *
@@ -96,7 +97,7 @@ public class FuncionarioDAO {
                 stmt.close();
             }
             
-            JOptionPane.showMessageDialog(null, "Funcionario excluído com sucesso");
+            JOptionPane.showMessageDialog(null, "Funcionário excluído com sucesso");
             
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "Erro: " + erro);
@@ -200,10 +201,34 @@ public class FuncionarioDAO {
             return funcionario;
 
         } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "Cliente não encontrado!");
+            JOptionPane.showMessageDialog(null, "Funcionário não encontrado!");
             return null;
         }
 
+    }
+    
+    //Logar
+    public void logar(String email, String senha) {
+        
+        try {
+            String sql = "select * from tb_funcionarios where email = ? and senha = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, email);
+            stmt.setString(2, senha);
+            ResultSet rs = stmt.executeQuery();
+            
+            if (rs.next()) {
+                JOptionPane.showMessageDialog(null, "Seja Bem-Vindo(a) ao Sistema");
+                FrmMenu tela = new FrmMenu();
+                tela.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Dados incorretos!");
+            }
+            
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "Erro: " + erro);
+        }
+        
     }
     
 }

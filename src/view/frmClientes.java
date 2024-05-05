@@ -636,7 +636,7 @@ public class frmClientes extends javax.swing.JFrame {
     }//GEN-LAST:event_btnatualizarActionPerformed
 
     private void btnpesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpesquisarActionPerformed
-        // Pesquisa por nome
+        // Pesquisa por Id
         int id = Integer.parseInt(txtcodigo.getText());
         Cliente cliente = new Cliente();
         ClienteDAO dao = new ClienteDAO();

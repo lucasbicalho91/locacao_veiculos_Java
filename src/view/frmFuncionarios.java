@@ -4,12 +4,10 @@
  */
 package view;
 
-import controller.ClienteDAO;
 import controller.FuncionarioDAO;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.Cliente;
 import model.Funcionario;
 import model.Utils;
 
@@ -405,15 +403,15 @@ public class frmFuncionarios extends javax.swing.JFrame {
 
     private void btnexcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnexcluirActionPerformed
         // Excluir cliente
-            Cliente cliente = new Cliente();
+        Funcionario funcionario = new Funcionario();
 
-            cliente.setId(Integer.parseInt(txtcodigo.getText()));
-            
-            ClienteDAO dao = new ClienteDAO();
-            dao.excluirCliente(cliente);
-            
-            new Utils().limparCampos(painel_dados); 
-            
+        funcionario.setId(Integer.parseInt(txtcodigo.getText()));
+
+        FuncionarioDAO dao = new FuncionarioDAO();
+        dao.excluirFuncionario(funcionario);
+
+        new Utils().limparCampos(painel_dados);
+
     }//GEN-LAST:event_btnexcluirActionPerformed
 
     private void btncadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncadastrarActionPerformed
@@ -449,52 +447,55 @@ public class frmFuncionarios extends javax.swing.JFrame {
         txtcodigo.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 0).toString());
         txtnome.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 1).toString());
         txtsobrenome.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 2).toString());
-        txtemail.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 5).toString());
+        txtemail.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 3).toString());
+        txtcargo.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 4).toString());
+        cbacesso.setSelectedItem(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 5).toString());
         txtcelular.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 6).toString());
-        cbacesso.setSelectedItem(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 13).toString());
         
     }//GEN-LAST:event_tabelaFuncionariosMouseClicked
 
     private void btnatualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnatualizarActionPerformed
         // Editar cliente
+        Funcionario funcionario = new Funcionario();
 
-            Cliente cliente = new Cliente();
+        funcionario.setNome(txtnome.getText());
+        funcionario.setSobrenome(txtsobrenome.getText());
+        funcionario.setEmail(txtemail.getText());
+        funcionario.setSenha(txtsenha.getText());
+        funcionario.setCargo(txtcargo.getText());
+        funcionario.setAcesso(cbacesso.getSelectedItem().toString());
+        funcionario.setCelular(txtcelular.getText());
+        funcionario.setId(Integer.parseInt(txtcodigo.getText()));
+
+        FuncionarioDAO dao = new FuncionarioDAO();
+        dao.alterarFuncionario(funcionario);
+
+        new Utils().limparCampos(painel_dados);
             
-            cliente.setNome(txtnome.getText());
-            cliente.setSobrenome(txtsobrenome.getText());
-            cliente.setEmail(txtemail.getText());
-            cliente.setCelular(txtcelular.getText());
-            cliente.setUf(cbacesso.getSelectedItem().toString());
-            cliente.setId(Integer.parseInt(txtcodigo.getText()));
-            
-            ClienteDAO dao = new ClienteDAO();
-            dao.alterarCliente(cliente);
-            
-            new Utils().limparCampos(painel_dados); 
     }//GEN-LAST:event_btnatualizarActionPerformed
 
     private void btnpesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpesquisarActionPerformed
-        // Pesquisa por nome
+        // Pesquisa por Id
         int id = Integer.parseInt(txtcodigo.getText());
-        Cliente cliente = new Cliente();
-        ClienteDAO dao = new ClienteDAO();
+        Funcionario funcionario = new Funcionario();
+        FuncionarioDAO dao = new FuncionarioDAO();
         
-        cliente = dao.buscarClientePorCodigo(id);
+        funcionario = dao.buscarFuncionarioPorCodigo(id);
         
-        if(cliente.getId() != 0) {
+        if(funcionario.getId() != 0) {
             
-            txtcodigo.setText(String.valueOf(cliente.getId()));
-            txtnome.setText(cliente.getNome());
-            txtsobrenome.setText(cliente.getSobrenome());
-            txtemail.setText(cliente.getEmail());
-            txtcelular.setText(cliente.getCelular());
-            cbacesso.setSelectedItem(cliente.getUf());
+            txtcodigo.setText(String.valueOf(funcionario.getId()));
+            txtnome.setText(funcionario.getNome());
+            txtsobrenome.setText(funcionario.getSobrenome());
+            txtemail.setText(funcionario.getEmail());
+            txtcargo.setText(funcionario.getCargo());
+            cbacesso.setSelectedItem(funcionario.getAcesso());
+            txtcelular.setText(funcionario.getCelular());
         }
         
         else {
             JOptionPane.showMessageDialog(null, "Cliente não encontrado!");
         }
-        
         
     }//GEN-LAST:event_btnpesquisarActionPerformed
 
@@ -502,27 +503,20 @@ public class frmFuncionarios extends javax.swing.JFrame {
         // Busca por nome
         String nome = "%" + txtpesquisa.getText() + "%";
         
-        ClienteDAO dao = new ClienteDAO();
-        List<Cliente> clientes = dao.listarClientePorNome(nome);
+        FuncionarioDAO dao = new FuncionarioDAO();
+        List<Funcionario> funcionarios = dao.listarFuncionarioPorNome(nome);
         DefaultTableModel dados = (DefaultTableModel) tabelaFuncionarios.getModel();
         dados.setNumRows(0);
         
-        for (Cliente c : clientes) {
+        for (Funcionario f : funcionarios) {
             dados.addRow(new Object[] {
-                c.getId(),
-                c.getNome(),
-                c.getSobrenome(),
-                c.getRg(),
-                c.getCpf(),
-                c.getEmail(),
-                c.getCelular(),
-                c.getCep(),
-                c.getEndereco(),
-                c.getNumero(),
-                c.getComplemento(),
-                c.getBairro(),
-                c.getCidade(),
-                c.getUf() 
+                f.getId(),
+                f.getNome(),
+                f.getSobrenome(),
+                f.getEmail(),
+                f.getCargo(),
+                f.getAcesso(),
+                f.getCelular(),
             });
         }
         
@@ -532,27 +526,20 @@ public class frmFuncionarios extends javax.swing.JFrame {
         // Busca por nome
         String nome = "%" + txtpesquisa.getText() + "%";
         
-        ClienteDAO dao = new ClienteDAO();
-        List<Cliente> clientes = dao.listarClientePorNome(nome);
+        FuncionarioDAO dao = new FuncionarioDAO();
+        List<Funcionario> funcionarios = dao.listarFuncionarioPorNome(nome);
         DefaultTableModel dados = (DefaultTableModel) tabelaFuncionarios.getModel();
         dados.setNumRows(0);
         
-        for (Cliente c : clientes) {
+        for (Funcionario f : funcionarios) {
             dados.addRow(new Object[] {
-                c.getId(),
-                c.getNome(),
-                c.getSobrenome(),
-                c.getRg(),
-                c.getCpf(),
-                c.getEmail(),
-                c.getCelular(),
-                c.getCep(),
-                c.getEndereco(),
-                c.getNumero(),
-                c.getComplemento(),
-                c.getBairro(),
-                c.getCidade(),
-                c.getUf() 
+                f.getId(),
+                f.getNome(),
+                f.getSobrenome(),
+                f.getEmail(),
+                f.getCargo(),
+                f.getAcesso(),
+                f.getCelular(),
             });
         }
         

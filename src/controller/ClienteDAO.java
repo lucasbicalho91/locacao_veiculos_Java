@@ -119,17 +119,17 @@ public class ClienteDAO {
     
     //Listar
     public List<Cliente> listarClientes() {
-        
+
         try {
             List<Cliente> clientes = new ArrayList<>();
-            
+
             String sql = "select * from tb_clientes";
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
-            
-            while(rs.next()) {
+
+            while (rs.next()) {
                 Cliente cliente = new Cliente();
-                
+
                 cliente.setId(rs.getInt("id"));
                 cliente.setNome(rs.getString("nome"));
                 cliente.setSobrenome(rs.getString("sobrenome"));
@@ -144,18 +144,97 @@ public class ClienteDAO {
                 cliente.setBairro(rs.getString("bairro"));
                 cliente.setCidade(rs.getString("cidade"));
                 cliente.setUf(rs.getString("uf"));
-                
+
                 clientes.add(cliente);
             }
-            
+
             return clientes;
-            
+
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "Erro: " + erro);
             return null;
         }
+
+    }
+
+    //buscar cliente por nome
+    public List<Cliente> listarClientePorNome(String nome) {
+
+        try {
+            List<Cliente> clientes = new ArrayList<>();
+
+            String sql = "select * from tb_clientes where nome like ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, nome);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Cliente cliente = new Cliente();
+
+                cliente.setId(rs.getInt("id"));
+                cliente.setNome(rs.getString("nome"));
+                cliente.setSobrenome(rs.getString("sobrenome"));
+                cliente.setRg(rs.getString("rg"));
+                cliente.setCpf(rs.getString("cpf"));
+                cliente.setEmail(rs.getString("email"));
+                cliente.setCelular(rs.getString("celular"));
+                cliente.setCep(rs.getString("cep"));
+                cliente.setEndereco(rs.getString("endereco"));
+                cliente.setNumero(rs.getInt("numero"));
+                cliente.setComplemento(rs.getString("complemento"));
+                cliente.setBairro(rs.getString("bairro"));
+                cliente.setCidade(rs.getString("cidade"));
+                cliente.setUf(rs.getString("uf"));
+
+                clientes.add(cliente);
+            }
+
+            return clientes;
+
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "Erro: " + erro);
+            return null;
+        }
+
+    }
  
+    //buscar cliente por nome
+    public Cliente buscarClientePorCodigo(int id) {
+
+        try {
+
+            String sql = "select * from tb_clientes where id = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
             
+            Cliente cliente = new Cliente();
+
+            if (rs.next()) {       
+
+                cliente.setId(rs.getInt("id"));
+                cliente.setNome(rs.getString("nome"));
+                cliente.setSobrenome(rs.getString("sobrenome"));
+                cliente.setRg(rs.getString("rg"));
+                cliente.setCpf(rs.getString("cpf"));
+                cliente.setEmail(rs.getString("email"));
+                cliente.setCelular(rs.getString("celular"));
+                cliente.setCep(rs.getString("cep"));
+                cliente.setEndereco(rs.getString("endereco"));
+                cliente.setNumero(rs.getInt("numero"));
+                cliente.setComplemento(rs.getString("complemento"));
+                cliente.setBairro(rs.getString("bairro"));
+                cliente.setCidade(rs.getString("cidade"));
+                cliente.setUf(rs.getString("uf"));
+            }
+            
+            return cliente;
+
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "Cliente não encontrado!");
+            return null;
+        }
+
     }
  
 }

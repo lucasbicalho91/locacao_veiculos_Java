@@ -220,6 +220,7 @@ public class FuncionarioDAO {
             if (rs.next()) {
                 JOptionPane.showMessageDialog(null, "Seja Bem-Vindo(a) ao Sistema");
                 FrmMenu tela = new FrmMenu();
+                tela.usuarioLogado = rs.getString("nome") + " " + rs.getString("sobrenome");
                 tela.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(null, "Dados incorretos!");

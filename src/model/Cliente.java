@@ -25,6 +25,7 @@ public class Cliente {
     private String bairro;
     private String cidade;
     private String uf;
+    private boolean locado;
     
     //Getters & Setters
 
@@ -138,6 +139,14 @@ public class Cliente {
 
     public void setUf(String uf) {
         this.uf = uf;
+    }
+
+    public boolean isLocado() {
+        return locado;
+    }
+
+    public void setLocado(boolean locado) {
+        this.locado = locado;
     }
     
     

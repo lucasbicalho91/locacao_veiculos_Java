@@ -33,8 +33,8 @@ public class ClienteDAO {
 
         try {
             String sql = "insert into tb_clientes (nome, sobrenome, rg, cpf, email, celular, cep, endereco,"
-                            + "numero, complemento, bairro, cidade, uf) "
-                            + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                            + "numero, complemento, bairro, cidade, uf, veiculo_locado) "
+                            + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setString(1, cliente.getNome());
@@ -50,6 +50,7 @@ public class ClienteDAO {
                 stmt.setString(11, cliente.getBairro());
                 stmt.setString(12, cliente.getCidade());
                 stmt.setString(13, cliente.getUf());
+                stmt.setBoolean(14, false);
                 
                 stmt.execute();
                 stmt.close();
@@ -101,7 +102,8 @@ public class ClienteDAO {
     //Excluir
     public void excluirCliente(Cliente cliente) {
         
-        try {String sql = "delete from tb_clientes where id = ?";
+        if (!cliente.isLocado()) {
+            try {String sql = "delete from tb_clientes where id = ?";
             
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setInt(1, cliente.getId());
@@ -112,9 +114,15 @@ public class ClienteDAO {
             
             JOptionPane.showMessageDialog(null, "Cliente excluído com sucesso");
             
-        } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "Erro: " + erro);
+            } catch (SQLException erro) {
+                JOptionPane.showMessageDialog(null, "Erro: " + erro);
+            }
         }
+        else {
+            JOptionPane.showMessageDialog(null, 
+                    "Não é possível excluir cliente que possui veículo locado");
+        }
+        
         
     }
     
@@ -145,6 +153,7 @@ public class ClienteDAO {
                 cliente.setBairro(rs.getString("bairro"));
                 cliente.setCidade(rs.getString("cidade"));
                 cliente.setUf(rs.getString("uf"));
+                cliente.setLocado(rs.getBoolean("veiculo_locado"));
 
                 clientes.add(cliente);
             }
@@ -186,6 +195,7 @@ public class ClienteDAO {
                 cliente.setBairro(rs.getString("bairro"));
                 cliente.setCidade(rs.getString("cidade"));
                 cliente.setUf(rs.getString("uf"));
+                cliente.setLocado(rs.getBoolean("veiculo_locado"));
 
                 clientes.add(cliente);
             }
@@ -227,6 +237,7 @@ public class ClienteDAO {
                 cliente.setBairro(rs.getString("bairro"));
                 cliente.setCidade(rs.getString("cidade"));
                 cliente.setUf(rs.getString("uf"));
+                cliente.setLocado(rs.getBoolean("veiculo_locado"));
             }
             
             return cliente;

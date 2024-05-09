@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 import jdbc.ConnectionFactory;
 
 import model.Cliente;
-import model.WebServiceCep;
+import utilities.WebServiceCep;
 
 /**
  *

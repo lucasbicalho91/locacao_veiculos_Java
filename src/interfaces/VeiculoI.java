@@ -2,9 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package model;
+package interfaces;
 
+import enums.Categoria;
+import enums.Marca;
+import enums.Estado;
 import java.util.Calendar;
+import model.Cliente;
+import model.Locacao;
 
 /**
  *

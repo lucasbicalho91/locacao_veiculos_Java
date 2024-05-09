@@ -4,6 +4,10 @@
  */
 package model;
 
+import interfaces.VeiculoI;
+import enums.Categoria;
+import enums.Marca;
+import enums.Estado;
 import java.util.Calendar;
 
 /**
@@ -13,15 +17,14 @@ import java.util.Calendar;
 
 public abstract class Veiculo implements VeiculoI {
     private Estado estado;
-    private Marca marca;
-    private Categoria categoria;
+    private final Marca marca;
+    protected final Categoria categoria;
     private Locacao locacao;
-    private String placa;
-    private int ano;
-    private double valorDeCompra;
-    private int idadeVeiculoEmAnos;
+    private final String placa;
+    private final int ano;
+    private final double valorDeCompra;
 
-    public Veiculo(Estado estado, Marca marca, Categoria categoria, Locacao locacao, String placa, int ano, double valorDeCompra, int idadeVeiculoEmAnos) {
+    public Veiculo(Estado estado, Marca marca, Categoria categoria, Locacao locacao, String placa, int ano, double valorDeCompra) {
         this.estado = estado;
         this.marca = marca;
         this.categoria = categoria;
@@ -29,19 +32,18 @@ public abstract class Veiculo implements VeiculoI {
         this.placa = placa;
         this.ano = ano;
         this.valorDeCompra = valorDeCompra;
-        this.idadeVeiculoEmAnos = idadeVeiculoEmAnos;
     }
 
     @Override
     public void locar(int dias, Calendar data, Cliente cliente) {
         estado = Estado.LOCADO;
         locacao = new Locacao();
-        //locacao.setDiasLocacao(dias);
-        //locacao.setDataLocacao(data);
-        //locacao.setCliente(cliente);
+        locacao.setDiasLocacao(dias);
+        locacao.setDataLocacao(data);
+        locacao.setCliente(cliente);
         double valorDiaria = getValorDiariaLocacao();
         double valorLocacao = dias * valorDiaria;
-        //locacao.setValorLocacao(valorLocacao);
+        locacao.setValorLocacao(valorLocacao);
     }
 
     @Override
@@ -86,11 +88,7 @@ public abstract class Veiculo implements VeiculoI {
 
     @Override
     public double getValorParaVenda() {
-        double valorParaVenda = valorDeCompra - idadeVeiculoEmAnos * 0.15 * valorDeCompra;
-        if (valorParaVenda < 0 || valorParaVenda < 0.1 * valorDeCompra) {
-            valorParaVenda = valorDeCompra * 0.1;
-        }
-        return valorParaVenda;
+        return valorDeCompra * 0.1;
     }
 
     @Override

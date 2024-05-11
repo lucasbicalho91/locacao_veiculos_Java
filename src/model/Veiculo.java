@@ -36,7 +36,7 @@ public abstract class Veiculo implements VeiculoI {
 
     @Override
     public void locar(int dias, Calendar data, Cliente cliente) {
-        estado = Estado.LOCADO;
+        estado = Estado.Locado;
         locacao = new Locacao();
         locacao.setDiasLocacao(dias);
         locacao.setDataLocacao(data);
@@ -48,12 +48,12 @@ public abstract class Veiculo implements VeiculoI {
 
     @Override
     public void vender() {
-        estado = Estado.VENDIDO;
+        estado = Estado.Vendido;
     }
 
     @Override
     public void devolver() {
-        estado = Estado.DISPONIVEL;
+        estado = Estado.Disponivel;
     }
 
     @Override

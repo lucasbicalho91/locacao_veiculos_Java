@@ -10,6 +10,13 @@ package enums;
  */
 public enum ModeloVan {
     
-    KOMBI, SPRINTER
+    Kombi, 
+    Sprinter,
+    Transit,
+    Master,
+    Ducato,
+    Jumper,
+    Expert,
+    Fiorino,
     
 }

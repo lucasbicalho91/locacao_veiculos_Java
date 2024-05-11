@@ -10,6 +10,29 @@ package enums;
  */
 public enum ModeloAutomovel {
     
-    GOL, CELTA, PALIO
-    
+    Strada,
+    Polo,
+    Onix,
+    HB20,
+    Mobi,
+    T_Cross,
+    Argo,
+    Tracker,
+    Creta,
+    Kwid,
+    Compass,
+    Nivus,
+    Toro,
+    Kicks,
+    Cronos,
+    HR_V,
+    Renegade,
+    Hilux,
+    Saveiro,
+    Pulse,
+    Corolla,
+    Duster,
+    C3,
+    S10,
+      
 }

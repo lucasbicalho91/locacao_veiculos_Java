@@ -10,6 +10,25 @@ package enums;
  */
 public enum Marca {
     
-    VW, GM, Fiat, Honda, Mercedes
+    Volkswagen, 
+    Chevrolet, 
+    Fiat,
+    Renault,
+    Ford,
+    Toyota,
+    Hyundai,
+    Honda, 
+    Nissan,
+    Citroën,
+    Mitsubishi,
+    Peugeot,
+    Jeep,
+    BMW,
+    Mercedes,
+    Audi, 
+    Volvo,
+    Yamaha,
+    Suzuki,
+    Kawasaki
     
 }

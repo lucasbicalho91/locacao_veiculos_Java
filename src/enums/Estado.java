@@ -10,5 +10,8 @@ package enums;
  */
 public enum Estado {
     
-    NOVO, LOCADO, VENDIDO, DISPONIVEL
+    Novo,
+    Locado,
+    Disponivel,
+    Vendido,
 }

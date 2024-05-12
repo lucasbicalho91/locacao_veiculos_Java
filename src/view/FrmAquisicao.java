@@ -4,11 +4,16 @@
  */
 package view;
 
+import controller.VeiculoDAO;
 import enums.Categoria;
 import enums.Marca;
 import enums.ModeloAutomovel;
 import enums.ModeloMotocicleta;
 import enums.ModeloVan;
+import model.Automovel;
+import model.Motocicleta;
+import model.Van;
+import utilities.Utils;
 
 /**
  *
@@ -48,7 +53,7 @@ public class FrmAquisicao extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         txtano = new javax.swing.JTextField();
         cbmarca = new javax.swing.JComboBox<>();
-        btncomprar = new javax.swing.JButton();
+        btncadastrar = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         cbtipo = new javax.swing.JComboBox<>();
         painelLista = new javax.swing.JPanel();
@@ -93,7 +98,7 @@ public class FrmAquisicao extends javax.swing.JFrame {
         jLabel13.setText("Valor de Compra:");
 
         try {
-            txtvalor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("R$##.###,##")));
+            txtvalor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("######.##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -146,6 +151,11 @@ public class FrmAquisicao extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         txtplaca.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtplaca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtplacaActionPerformed(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel8.setText("Ano:");
@@ -162,13 +172,13 @@ public class FrmAquisicao extends javax.swing.JFrame {
             }
         });
 
-        btncomprar.setBackground(new java.awt.Color(240, 240, 240));
-        btncomprar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btncomprar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/van_icon.png"))); // NOI18N
-        btncomprar.setText("CADASTRAR VEÍCULO");
-        btncomprar.addActionListener(new java.awt.event.ActionListener() {
+        btncadastrar.setBackground(new java.awt.Color(240, 240, 240));
+        btncadastrar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btncadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/van_icon.png"))); // NOI18N
+        btncadastrar.setText("CADASTRAR VEÍCULO");
+        btncadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btncomprarActionPerformed(evt);
+                btncadastrarActionPerformed(evt);
             }
         });
 
@@ -202,10 +212,9 @@ public class FrmAquisicao extends javax.swing.JFrame {
         painelDadosLayout.setHorizontalGroup(
             painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelDadosLayout.createSequentialGroup()
-                .addGap(127, 127, 127)
                 .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelDadosLayout.createSequentialGroup()
-                        .addGap(44, 44, 44)
+                        .addGap(124, 124, 124)
                         .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(painelDadosLayout.createSequentialGroup()
                                 .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -222,25 +231,25 @@ public class FrmAquisicao extends javax.swing.JFrame {
                             .addGroup(painelDadosLayout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cbmarca, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelDadosLayout.createSequentialGroup()
-                            .addComponent(jLabel13)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtvalor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelDadosLayout.createSequentialGroup()
-                            .addComponent(jLabel14)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtplaca, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(cbmarca, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(painelDadosLayout.createSequentialGroup()
+                                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(painelDadosLayout.createSequentialGroup()
+                                        .addComponent(jLabel14)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtplaca, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(painelDadosLayout.createSequentialGroup()
+                                        .addComponent(jLabel13)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtvalor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(142, 142, 142))
+                            .addComponent(btncadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(painelDadosLayout.createSequentialGroup()
-                        .addGap(12, 12, 12)
+                        .addGap(139, 139, 139)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbtipo, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(painelDadosLayout.createSequentialGroup()
-                        .addGap(73, 73, 73)
-                        .addComponent(btncomprar, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(200, Short.MAX_VALUE))
+                        .addComponent(cbtipo, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(221, Short.MAX_VALUE))
         );
         painelDadosLayout.setVerticalGroup(
             painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -267,14 +276,14 @@ public class FrmAquisicao extends javax.swing.JFrame {
                     .addComponent(txtano, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtvalor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel13))
-                .addGap(18, 18, 18)
-                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtplaca, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14))
                 .addGap(18, 18, 18)
-                .addComponent(btncomprar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtvalor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13))
+                .addGap(18, 18, 18)
+                .addComponent(btncadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(62, Short.MAX_VALUE))
         );
 
@@ -398,9 +407,55 @@ public class FrmAquisicao extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbtipoAncestorAdded
 
-    private void btncomprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncomprarActionPerformed
-        // cadastrar
-    }//GEN-LAST:event_btncomprarActionPerformed
+    private void btncadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncadastrarActionPerformed
+        // cadastrar um novo veículo
+        String tipo = cbtipo.getSelectedItem().toString();
+        
+        if (cbtipo.getSelectedItem() == "Automóvel") {
+            Automovel automovel = new Automovel();
+            
+            automovel.setMarca(Marca.valueOf(cbmarca.getSelectedItem().toString()));
+            automovel.setModelo(ModeloAutomovel.valueOf(cbmodelo.getSelectedItem().toString()));
+            automovel.setCategoria(Categoria.valueOf(cbcategoria.getSelectedItem().toString()));
+            automovel.setAno(Integer.parseInt(txtano.getText()));
+            automovel.setPlaca(txtplaca.getText());
+            automovel.setValorCompra(Double.parseDouble(txtvalor.getText()));
+            
+            VeiculoDAO dao = new VeiculoDAO();
+            dao.cadastrarVeiculo (automovel, tipo);
+        }
+        
+        else if (cbtipo.getSelectedItem() == "Motocicleta") {
+            Motocicleta motocicleta = new Motocicleta();
+            
+            motocicleta.setMarca(Marca.valueOf(cbmarca.getSelectedItem().toString()));
+            motocicleta.setModelo(ModeloMotocicleta.valueOf(cbmodelo.getSelectedItem().toString()));
+            motocicleta.setCategoria(Categoria.valueOf(cbcategoria.getSelectedItem().toString()));
+            motocicleta.setAno(Integer.parseInt(txtano.getText()));
+            motocicleta.setPlaca(txtplaca.getText());
+            motocicleta.setValorCompra(Double.parseDouble(txtvalor.getText()));
+            
+            VeiculoDAO dao = new VeiculoDAO();
+            dao.cadastrarVeiculo (motocicleta, tipo);
+        }
+        
+        else if (cbtipo.getSelectedItem() == "Van") {
+            Van van = new Van();
+            
+            van.setMarca(Marca.valueOf(cbmarca.getSelectedItem().toString()));
+            van.setModelo(ModeloVan.valueOf(cbmodelo.getSelectedItem().toString()));
+            van.setCategoria(Categoria.valueOf(cbcategoria.getSelectedItem().toString()));
+            van.setAno(Integer.parseInt(txtano.getText()));
+            van.setPlaca(txtplaca.getText());
+            van.setValorCompra(Double.parseDouble(txtvalor.getText()));
+
+            VeiculoDAO dao = new VeiculoDAO();
+            dao.cadastrarVeiculo (van, tipo);
+        }
+        
+        new Utils().limparCampos(painelDados);
+        
+    }//GEN-LAST:event_btncadastrarActionPerformed
 
     private void cbmarcaAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbmarcaAncestorAdded
 
@@ -449,7 +504,7 @@ public class FrmAquisicao extends javax.swing.JFrame {
         cbcategoria.removeAllItems();
 
         for (Categoria categoria : Categoria.values()) {
-            cbcategoria.addItem(categoria.toString());
+            cbcategoria.addItem(categoria.getDescricao());
         }
     }//GEN-LAST:event_cbcategoriaAncestorAdded
 
@@ -480,6 +535,10 @@ public class FrmAquisicao extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_cbtipoItemStateChanged
+
+    private void txtplacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtplacaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtplacaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -518,7 +577,7 @@ public class FrmAquisicao extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnbusca;
-    private javax.swing.JButton btncomprar;
+    private javax.swing.JButton btncadastrar;
     private javax.swing.JComboBox<String> cbcategoria;
     private javax.swing.JComboBox<String> cbmarca;
     private javax.swing.JComboBox<String> cbmodelo;

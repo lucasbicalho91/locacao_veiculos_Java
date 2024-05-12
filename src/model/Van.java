@@ -15,25 +15,33 @@ import enums.ModeloVan;
  */
 public class Van extends Veiculo {
     
-    private final ModeloVan modelo;
+    private ModeloVan modelo;
 
-    public Van(Estado estado, Marca marca, Categoria categoria, Locacao locacao, String placa, int ano,
-               double valorDeCompra, ModeloVan modelo) {
-        super(marca, categoria, locacao, placa, ano, valorDeCompra, estado);
+    public Van(Marca marca, ModeloVan modelo, Categoria categoria, Locacao locacao, String placa, int ano,
+               double valorCompra, String tipo, Estado estado) {
+        super(marca, categoria, locacao, placa, ano, valorCompra, tipo, estado);
         this.modelo = modelo;
+    }
+    
+    public Van() {
+        
     }
 
     @Override
     public String getModelo() {
         return modelo.toString();
     }
+    
+    public void setModelo(ModeloVan modelo) {
+        this.modelo = modelo;
+    }
 
     @Override
     public double getValorDiariaLocacao() {
         return switch (categoria) {
-            case Popular -> 200.00;
-            case Intermediario -> 400.00;
-            case Luxo -> 600.00;
+            case POPULAR -> 200.00;
+            case INTERMEDIARIO -> 400.00;
+            case LUXO -> 600.00;
             default -> 0.00;
         }; // Valor padrão se categoria não estiver definida corretamente
     }

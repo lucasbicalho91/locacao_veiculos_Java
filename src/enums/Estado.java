@@ -10,8 +10,21 @@ package enums;
  */
 public enum Estado {
     
-    Novo,
-    Locado,
-    Disponivel,
-    Vendido,
+    NOVO("Novo"),
+    LOCADO("Locado"),
+    DISPONIVEL("Disponível"),
+    VENDIDO("Vendido");
+
+    private final String descricao;
+
+    Estado(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+    
 }
+
+

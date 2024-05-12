@@ -10,8 +10,18 @@ package enums;
  */
 public enum Categoria {
     
-    Popular,
-    Intermediario,
-    Luxo,
+    POPULAR("Popular"),
+    INTERMEDIARIO("Intermediário"),
+    LUXO("Luxo");
+
+    private final String descricao;
+
+    Categoria(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
     
 }

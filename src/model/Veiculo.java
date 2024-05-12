@@ -17,22 +17,28 @@ import java.util.Calendar;
 
 public abstract class Veiculo implements VeiculoI {
 
-    private final Marca marca;
-    protected final Categoria categoria;
+    private Marca marca;
+    protected Categoria categoria;
     private Locacao locacao;
-    private final String placa;
-    private final int ano;
-    private final double valorCompra;
+    private String placa;
+    private int ano;
+    private double valorCompra;
+    private String tipo;
     private Estado estado;
+    
+    public Veiculo() {
+        
+    }
 
-    public Veiculo(Marca marca, Categoria categoria, Locacao locacao, 
-                    String placa, int ano, double valorCompra, Estado estado) {
+    public Veiculo(Marca marca, Categoria categoria, Locacao locacao, String placa, 
+                    int ano, double valorCompra, String tipo, Estado estado) {
         this.marca = marca;
         this.categoria = categoria;
         this.locacao = locacao;
         this.placa = placa;
         this.ano = ano;
         this.valorCompra = valorCompra;
+        this.tipo = tipo;
         this.estado = estado;
     }
 
@@ -45,17 +51,17 @@ public abstract class Veiculo implements VeiculoI {
         double valorDiaria = getValorDiariaLocacao();
         double valorLocacao = dias * valorDiaria;
         locacao.setValorLocacao(valorLocacao);
-        estado = Estado.Locado;
+        estado = Estado.LOCADO;
     }
 
     @Override
     public void vender() {
-        estado = Estado.Vendido;
+        estado = Estado.VENDIDO;
     }
 
     @Override
     public void devolver() {
-        estado = Estado.Disponivel;
+        estado = Estado.DISPONIVEL;
     }
 
     @Override
@@ -104,6 +110,42 @@ public abstract class Veiculo implements VeiculoI {
     }
       
     public abstract String getModelo();
+
+    public void setMarca(Marca marca) {
+        this.marca = marca;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    public void setLocacao(Locacao locacao) {
+        this.locacao = locacao;
+    }
+
+    public void setPlaca(String placa) {
+        this.placa = placa;
+    }
+
+    public void setAno(int ano) {
+        this.ano = ano;
+    }
+
+    public void setValorCompra(double valorCompra) {
+        this.valorCompra = valorCompra;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+    
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
     
 }
 

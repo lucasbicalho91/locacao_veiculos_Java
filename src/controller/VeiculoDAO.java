@@ -4,6 +4,7 @@
  */
 package controller;
 
+import enums.Estado;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -23,7 +24,7 @@ public class VeiculoDAO {
         this.conn = new ConnectionFactory().getConnection();
     }
     
-    public void cadastrarAutomovel(Veiculo veiculo, String tipoVeiculo) {
+    public void cadastrarVeiculo(Veiculo veiculo, String tipoVeiculo) {
         
         try {
             String sql = "insert into tb_veiculos (marca, modelo, categoria, placa, ano, "
@@ -37,12 +38,12 @@ public class VeiculoDAO {
                 stmt.setInt(5, veiculo.getAno());
                 stmt.setDouble(6, veiculo.getValorCompra());
                 stmt.setString(7, tipoVeiculo);
-                stmt.setString(8, "Disponivel");
+                stmt.setString(8, Estado.DISPONIVEL.getDescricao());
                 
                 stmt.execute();
             }
             
-            JOptionPane.showMessageDialog(null, "Automóvel cadastrado com sucesso");
+            JOptionPane.showMessageDialog(null, "Veículo cadastrado com sucesso");
            
             
         } catch (SQLException erro) {

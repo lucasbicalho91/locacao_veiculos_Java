@@ -16,9 +16,9 @@ import enums.ModeloAutomovel;
 public class Automovel extends Veiculo {
     private ModeloAutomovel modelo;
 
-    public Automovel(Marca marca, ModeloAutomovel modelo, Categoria categoria, Locacao locacao, String placa, 
-            int ano, double valorCompra, String tipo, Estado estado) {
-        super(marca, categoria, locacao, placa, ano, valorCompra, tipo, estado);
+    public Automovel(int id, Marca marca, ModeloAutomovel modelo, Categoria categoria, Locacao locacao, 
+            String placa, int ano, double valorCompra, String tipo, Estado estado) {
+        super(id, marca, categoria, locacao, placa, ano, valorCompra, tipo, estado);
         this.modelo = modelo;
     }
     

@@ -25,6 +25,15 @@ public enum Estado {
         return descricao;
     }
     
+    public static Estado fromDescricao(String descricao) {
+        for (Estado estado : Estado.values()) {
+            if (estado.descricao.equals(descricao)) {
+                return estado;
+            }
+        }
+        throw new IllegalArgumentException("Estado inválido: " + descricao);
+    }
+    
 }
 
 

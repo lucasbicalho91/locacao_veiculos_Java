@@ -24,4 +24,13 @@ public enum Categoria {
         return descricao;
     }
     
+    public static Categoria fromDescricao(String descricao) {
+        for (Categoria categoria : Categoria.values()) {
+            if (categoria.descricao.equals(descricao)) {
+                return categoria;
+            }
+        }
+        throw new IllegalArgumentException("Categoria inválida: " + descricao);
+    }
+    
 }

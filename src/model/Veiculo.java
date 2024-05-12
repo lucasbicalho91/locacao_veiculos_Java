@@ -17,6 +17,7 @@ import java.util.Calendar;
 
 public abstract class Veiculo implements VeiculoI {
 
+    private int id;
     private Marca marca;
     protected Categoria categoria;
     private Locacao locacao;
@@ -30,8 +31,9 @@ public abstract class Veiculo implements VeiculoI {
         
     }
 
-    public Veiculo(Marca marca, Categoria categoria, Locacao locacao, String placa, 
+    public Veiculo(int id, Marca marca, Categoria categoria, Locacao locacao, String placa, 
                     int ano, double valorCompra, String tipo, Estado estado) {
+        this.id = id;
         this.marca = marca;
         this.categoria = categoria;
         this.locacao = locacao;
@@ -145,6 +147,14 @@ public abstract class Veiculo implements VeiculoI {
 
     public void setEstado(Estado estado) {
         this.estado = estado;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
     
 }

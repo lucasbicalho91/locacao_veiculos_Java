@@ -4,54 +4,20 @@
  */
 package view;
 
-import controller.ClienteDAO;
 import enums.Categoria;
 import enums.Marca;
 import enums.ModeloAutomovel;
-import java.util.List;
-import javax.swing.table.DefaultTableModel;
-import model.Cliente;
 
 /**
  *
  * @author Lucas
  */
-public class FrmMotocicletas extends javax.swing.JFrame {
-    
-    public void listar() {
-
-        ClienteDAO dao = new ClienteDAO();
-        List<Cliente> clientes = dao.listarClientes();
-        DefaultTableModel dados = (DefaultTableModel) tabelaMotocicletas.getModel();
-        dados.setNumRows(0);
-        
-        for (Cliente c : clientes) {
-            String veiculoLocado = c.isLocado() ? "Sim" : "Não";
-            dados.addRow(new Object[] {
-                c.getId(),
-                c.getNome(),
-                c.getSobrenome(),
-                c.getRg(),
-                c.getCpf(),
-                c.getEmail(),
-                c.getCelular(),
-                c.getCep(),
-                c.getEndereco(),
-                c.getNumero(),
-                c.getComplemento(),
-                c.getBairro(),
-                c.getCidade(),
-                c.getUf(),
-                veiculoLocado
-            });
-        }
-        
-    }
+public class FrmAquisicao extends javax.swing.JFrame {
 
     /**
-     * Creates new form frmClientes
+     * Creates new form FrmAquisicao
      */
-    public FrmMotocicletas() {
+    public FrmAquisicao() {
         initComponents();
     }
 
@@ -71,7 +37,6 @@ public class FrmMotocicletas extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         txtvalor = new javax.swing.JFormattedTextField();
-        btncomprar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         cbcategoria = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
@@ -81,6 +46,7 @@ public class FrmMotocicletas extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         txtano = new javax.swing.JTextField();
         cbmarca = new javax.swing.JComboBox<>();
+        btncomprar = new javax.swing.JButton();
         painelLista = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         txtpesquisa = new javax.swing.JTextField();
@@ -89,18 +55,13 @@ public class FrmMotocicletas extends javax.swing.JFrame {
         tabelaMotocicletas = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cadastro de Motocicleta");
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowActivated(java.awt.event.WindowEvent evt) {
-                formWindowActivated(evt);
-            }
-        });
+        setTitle("Cadastro de Veículo");
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 204));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 28)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Aquisição de Motocicleta");
+        jLabel1.setText("Cadastro de Veículo Novo");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -109,7 +70,7 @@ public class FrmMotocicletas extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(354, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,16 +94,6 @@ public class FrmMotocicletas extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         txtvalor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-
-        btncomprar.setBackground(new java.awt.Color(240, 240, 240));
-        btncomprar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btncomprar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/moto_icon.png"))); // NOI18N
-        btncomprar.setText("COMPRAR MOTOCICLETA");
-        btncomprar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btncomprarActionPerformed(evt);
-            }
-        });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setText("Categoria:");
@@ -207,6 +158,16 @@ public class FrmMotocicletas extends javax.swing.JFrame {
             }
         });
 
+        btncomprar.setBackground(new java.awt.Color(240, 240, 240));
+        btncomprar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btncomprar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/van_icon.png"))); // NOI18N
+        btncomprar.setText("CADASTRAR VEÍCULO");
+        btncomprar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btncomprarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout painel_dadosLayout = new javax.swing.GroupLayout(painel_dados);
         painel_dados.setLayout(painel_dadosLayout);
         painel_dadosLayout.setHorizontalGroup(
@@ -233,18 +194,19 @@ public class FrmMotocicletas extends javax.swing.JFrame {
                     .addGroup(painel_dadosLayout.createSequentialGroup()
                         .addGap(145, 145, 145)
                         .addGroup(painel_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_dadosLayout.createSequentialGroup()
-                                .addComponent(jLabel13)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtvalor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_dadosLayout.createSequentialGroup()
-                                .addComponent(jLabel14)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtplaca, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(painel_dadosLayout.createSequentialGroup()
-                        .addGap(258, 258, 258)
-                        .addComponent(btncomprar, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(142, Short.MAX_VALUE))
+                            .addGroup(painel_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_dadosLayout.createSequentialGroup()
+                                    .addComponent(jLabel13)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtvalor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_dadosLayout.createSequentialGroup()
+                                    .addComponent(jLabel14)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtplaca, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(painel_dadosLayout.createSequentialGroup()
+                                .addGap(73, 73, 73)
+                                .addComponent(btncomprar, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(182, Short.MAX_VALUE))
         );
         painel_dadosLayout.setVerticalGroup(
             painel_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -278,7 +240,7 @@ public class FrmMotocicletas extends javax.swing.JFrame {
                 .addContainerGap(58, Short.MAX_VALUE))
         );
 
-        painelMotocicleta.addTab("Dados da Motocicleta", painel_dados);
+        painelMotocicleta.addTab("Dados do Veículo", painel_dados);
 
         painelLista.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -352,7 +314,7 @@ public class FrmMotocicletas extends javax.swing.JFrame {
                 .addContainerGap(36, Short.MAX_VALUE))
         );
 
-        painelMotocicleta.addTab("Lista de Motocicletas", painelLista);
+        painelMotocicleta.addTab("Lista de Veículos", painelLista);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -360,99 +322,81 @@ public class FrmMotocicletas extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(painelMotocicleta, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(painelMotocicleta, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 45, Short.MAX_VALUE))
+                .addComponent(painelMotocicleta, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        // Carrega a lista
-        listar();
-        
-    }//GEN-LAST:event_formWindowActivated
+    private void cbcategoriaAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbcategoriaAncestorAdded
 
-    private void tabelaMotocicletasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMotocicletasMouseClicked
-        // Pega os dados do cliente
-        painelMotocicleta.setSelectedIndex(0);
+        cbcategoria.removeAllItems();
 
+        for (Categoria categoria : Categoria.values()) {
+            cbcategoria.addItem(categoria.toString());
+        }
 
-
-    }//GEN-LAST:event_tabelaMotocicletasMouseClicked
-
-    private void btnbuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscaActionPerformed
-
-
-    }//GEN-LAST:event_btnbuscaActionPerformed
-
-    private void txtpesquisaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtpesquisaKeyPressed
-
-    
-
-    }//GEN-LAST:event_txtpesquisaKeyPressed
-
-    private void txtpesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpesquisaActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_txtpesquisaActionPerformed
-
-    private void btncomprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncomprarActionPerformed
-        // cadastrar
-
-
-    }//GEN-LAST:event_btncomprarActionPerformed
+    }//GEN-LAST:event_cbcategoriaAncestorAdded
 
     private void cbcategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbcategoriaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbcategoriaActionPerformed
+
+    private void cbmodeloAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbmodeloAncestorAdded
+
+        cbmodelo.removeAllItems();
+
+        for (ModeloAutomovel modelo : ModeloAutomovel.values()) {
+            cbmodelo.addItem(modelo.toString());
+        }
+
+    }//GEN-LAST:event_cbmodeloAncestorAdded
 
     private void cbmodeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbmodeloActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbmodeloActionPerformed
 
     private void cbmarcaAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbmarcaAncestorAdded
-        
-                                    
-    cbmarca.removeAllItems();
-    
-    for (Marca marca : Marca.values()) {
-        cbmarca.addItem(marca.toString());
-    
-}
 
-        
+        cbmarca.removeAllItems();
+
+        for (Marca marca : Marca.values()) {
+            cbmarca.addItem(marca.toString());
+
+        }
+
     }//GEN-LAST:event_cbmarcaAncestorAdded
 
-    private void cbcategoriaAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbcategoriaAncestorAdded
-        
-    cbcategoria.removeAllItems();
-    
-    for (Categoria categoria : Categoria.values()) {
-        cbcategoria.addItem(categoria.toString());
-    }
-        
-    }//GEN-LAST:event_cbcategoriaAncestorAdded
+    private void txtpesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpesquisaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtpesquisaActionPerformed
 
-    private void cbmodeloAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbmodeloAncestorAdded
-        
-    cbmodelo.removeAllItems();
-    
-    for (ModeloAutomovel modelo : ModeloAutomovel.values()) {
-        cbmodelo.addItem(modelo.toString());
-    }
-        
-    }//GEN-LAST:event_cbmodeloAncestorAdded
+    private void txtpesquisaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtpesquisaKeyPressed
+
+    }//GEN-LAST:event_txtpesquisaKeyPressed
+
+    private void btnbuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscaActionPerformed
+
+    }//GEN-LAST:event_btnbuscaActionPerformed
+
+    private void tabelaMotocicletasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMotocicletasMouseClicked
+        // Pega os dados do cliente
+        painelMotocicleta.setSelectedIndex(0);
+
+    }//GEN-LAST:event_tabelaMotocicletasMouseClicked
+
+    private void btncomprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncomprarActionPerformed
+        // cadastrar
+
+    }//GEN-LAST:event_btncomprarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -471,36 +415,20 @@ public class FrmMotocicletas extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmMotocicletas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmAquisicao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmMotocicletas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmAquisicao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmMotocicletas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmAquisicao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmMotocicletas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmAquisicao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
             public void run() {
-                new FrmMotocicletas().setVisible(true);
+                new FrmAquisicao().setVisible(true);
             }
         });
     }

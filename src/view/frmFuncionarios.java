@@ -15,7 +15,7 @@ import utilities.Utils;
  *
  * @author Lucas
  */
-public class frmFuncionarios extends javax.swing.JFrame {
+public class FrmFuncionarios extends javax.swing.JFrame {
     
     public void listar() {
 
@@ -42,7 +42,7 @@ public class frmFuncionarios extends javax.swing.JFrame {
     /**
      * Creates new form frmClientes
      */
-    public frmFuncionarios() {
+    public FrmFuncionarios() {
         initComponents();
     }
 
@@ -577,14 +577,16 @@ public class frmFuncionarios extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmFuncionarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmFuncionarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmFuncionarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmFuncionarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmFuncionarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmFuncionarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmFuncionarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmFuncionarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
@@ -592,7 +594,7 @@ public class frmFuncionarios extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new frmFuncionarios().setVisible(true);
+                new FrmFuncionarios().setVisible(true);
             }
         });
     }

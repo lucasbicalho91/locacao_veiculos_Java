@@ -5,18 +5,15 @@
 package view;
 
 import controller.ClienteDAO;
-import java.awt.event.KeyEvent;
 import java.util.List;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Cliente;
-import utilities.Utils;
 
 /**
  *
  * @author Lucas
  */
-public class frmVeiculos extends javax.swing.JFrame {
+public class FrmVeiculos extends javax.swing.JFrame {
     
     public void listar() {
 
@@ -51,7 +48,7 @@ public class frmVeiculos extends javax.swing.JFrame {
     /**
      * Creates new form frmClientes
      */
-    public frmVeiculos() {
+    public FrmVeiculos() {
         initComponents();
     }
 
@@ -73,6 +70,7 @@ public class frmVeiculos extends javax.swing.JFrame {
         btncadastrar = new javax.swing.JButton();
         btnlocar = new javax.swing.JButton();
         btnvender = new javax.swing.JButton();
+        btnlocar1 = new javax.swing.JButton();
         paineldisponivel = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         txtpesquisa = new javax.swing.JTextField();
@@ -83,7 +81,7 @@ public class frmVeiculos extends javax.swing.JFrame {
         paineltodos = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cadastro de Clientes");
+        setTitle("Página de Veículos");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -138,12 +136,16 @@ public class frmVeiculos extends javax.swing.JFrame {
         });
 
         btnlocar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        btnlocar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/car_icon.png"))); // NOI18N
-        btnlocar.setText("Locar um veículo para um cliente");
+        btnlocar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/back_icon.png"))); // NOI18N
+        btnlocar.setText("Devolver o veículo de um cliente");
 
         btnvender.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnvender.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/money_icon.png"))); // NOI18N
         btnvender.setText("Vender um veículo");
+
+        btnlocar1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnlocar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/car_icon.png"))); // NOI18N
+        btnlocar1.setText("Locar um veículo para um cliente");
 
         javax.swing.GroupLayout painel_inicialLayout = new javax.swing.GroupLayout(painel_inicial);
         painel_inicial.setLayout(painel_inicialLayout);
@@ -156,19 +158,23 @@ public class frmVeiculos extends javax.swing.JFrame {
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(painel_inicialLayout.createSequentialGroup()
                         .addGap(82, 82, 82)
-                        .addGroup(painel_inicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnlistar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnvender, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btncadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnlocar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGroup(painel_inicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnlocar, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(painel_inicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(btnlistar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnvender, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btncadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnlocar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap(257, Short.MAX_VALUE))
         );
         painel_inicialLayout.setVerticalGroup(
             painel_inicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painel_inicialLayout.createSequentialGroup()
-                .addGap(41, 41, 41)
+                .addGap(17, 17, 17)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addGap(18, 18, 18)
+                .addComponent(btnlocar1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btnlocar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btncadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -176,7 +182,7 @@ public class frmVeiculos extends javax.swing.JFrame {
                 .addComponent(btnvender, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnlistar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Página Inicial", painel_inicial);
@@ -297,7 +303,7 @@ public class frmVeiculos extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 57, Short.MAX_VALUE))
+                .addGap(0, 131, Short.MAX_VALUE))
         );
 
         pack();
@@ -389,7 +395,11 @@ public class frmVeiculos extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void btncadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncadastrarActionPerformed
-        // TODO add your handling code here:
+        
+        FrmOpcoes telaop = new FrmOpcoes();
+        telaop.setVisible(true);
+        this.dispose();
+        
     }//GEN-LAST:event_btncadastrarActionPerformed
 
     /**
@@ -409,14 +419,22 @@ public class frmVeiculos extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmVeiculos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmVeiculos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmVeiculos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmVeiculos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmVeiculos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmVeiculos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmVeiculos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmVeiculos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -430,7 +448,7 @@ public class frmVeiculos extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new frmVeiculos().setVisible(true);
+                new FrmVeiculos().setVisible(true);
             }
         });
     }
@@ -440,6 +458,7 @@ public class frmVeiculos extends javax.swing.JFrame {
     private javax.swing.JButton btncadastrar;
     private javax.swing.JButton btnlistar;
     private javax.swing.JButton btnlocar;
+    private javax.swing.JButton btnlocar1;
     private javax.swing.JButton btnvender;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;

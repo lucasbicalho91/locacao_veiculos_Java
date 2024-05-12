@@ -18,6 +18,7 @@ public enum ModeloAutomovel {
     T_Cross,
     Argo,
     Tracker,
+    Civic,
     Creta,
     Kwid,
     Compass,

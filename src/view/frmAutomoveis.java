@@ -16,7 +16,7 @@ import model.Cliente;
  *
  * @author Lucas
  */
-public class frmAutomoveis extends javax.swing.JFrame {
+public class FrmAutomoveis extends javax.swing.JFrame {
     
     public void listar() {
 
@@ -51,7 +51,7 @@ public class frmAutomoveis extends javax.swing.JFrame {
     /**
      * Creates new form frmClientes
      */
-    public frmAutomoveis() {
+    public FrmAutomoveis() {
         initComponents();
     }
 
@@ -89,7 +89,7 @@ public class frmAutomoveis extends javax.swing.JFrame {
         tabelaAutomoveis = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cadastro de Clientes");
+        setTitle("Cadastro de Automóvel");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -472,14 +472,18 @@ public class frmAutomoveis extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmAutomoveis.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmAutomoveis.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmAutomoveis.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmAutomoveis.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmAutomoveis.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmAutomoveis.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmAutomoveis.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmAutomoveis.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -489,7 +493,7 @@ public class frmAutomoveis extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new frmAutomoveis().setVisible(true);
+                new FrmAutomoveis().setVisible(true);
             }
         });
     }

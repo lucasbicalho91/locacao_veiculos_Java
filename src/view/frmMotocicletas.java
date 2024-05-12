@@ -16,7 +16,7 @@ import model.Cliente;
  *
  * @author Lucas
  */
-public class frmMotocicletas extends javax.swing.JFrame {
+public class FrmMotocicletas extends javax.swing.JFrame {
     
     public void listar() {
 
@@ -51,7 +51,7 @@ public class frmMotocicletas extends javax.swing.JFrame {
     /**
      * Creates new form frmClientes
      */
-    public frmMotocicletas() {
+    public FrmMotocicletas() {
         initComponents();
     }
 
@@ -89,7 +89,7 @@ public class frmMotocicletas extends javax.swing.JFrame {
         tabelaMotocicletas = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cadastro de Clientes");
+        setTitle("Cadastro de Motocicleta");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -471,14 +471,22 @@ public class frmMotocicletas extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmMotocicletas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmMotocicletas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmMotocicletas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmMotocicletas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmMotocicletas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmMotocicletas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmMotocicletas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmMotocicletas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -492,7 +500,7 @@ public class frmMotocicletas extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new frmMotocicletas().setVisible(true);
+                new FrmMotocicletas().setVisible(true);
             }
         });
     }

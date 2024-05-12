@@ -14,30 +14,27 @@ import enums.ModeloMotocicleta;
  * @author Lucas
  */
 public class Motocicleta extends Veiculo {
-    private ModeloMotocicleta modelo;
+    private final ModeloMotocicleta modelo;
 
     public Motocicleta(Estado estado, Marca marca, Categoria categoria, Locacao locacao, String placa, int ano,
                        double valorDeCompra, int idadeVeiculoEmAnos, ModeloMotocicleta modelo) {
-        super(estado, marca, categoria, locacao, placa, ano, valorDeCompra);
+        super(marca, categoria, locacao, placa, ano, valorDeCompra, estado);
         this.modelo = modelo;
     }
 
-    public ModeloMotocicleta getModelo() {
-        return modelo;
+    @Override
+    public String getModelo() {
+        return modelo.toString();
     }
 
     @Override
     public double getValorDiariaLocacao() {
-        switch (categoria) {
-            case Popular:
-                return 70.00;
-            case Intermediario:
-                return 200.00;
-            case Luxo:
-                return 350.00;
-            default:
-                return 0.00; // Valor padrão se categoria não estiver definida corretamente
-        }
+        return switch (categoria) {
+            case Popular -> 70.00;
+            case Intermediario -> 200.00;
+            case Luxo -> 350.00;
+            default -> 0.00;
+        }; // Valor padrão se categoria não estiver definida corretamente
     }
 }
 

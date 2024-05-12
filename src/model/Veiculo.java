@@ -16,27 +16,28 @@ import java.util.Calendar;
  */
 
 public abstract class Veiculo implements VeiculoI {
-    private Estado estado;
+
     private final Marca marca;
     protected final Categoria categoria;
     private Locacao locacao;
     private final String placa;
     private final int ano;
-    private final double valorDeCompra;
+    private final double valorCompra;
+    private Estado estado;
 
-    public Veiculo(Estado estado, Marca marca, Categoria categoria, Locacao locacao, String placa, int ano, double valorDeCompra) {
-        this.estado = estado;
+    public Veiculo(Marca marca, Categoria categoria, Locacao locacao, 
+                    String placa, int ano, double valorCompra, Estado estado) {
         this.marca = marca;
         this.categoria = categoria;
         this.locacao = locacao;
         this.placa = placa;
         this.ano = ano;
-        this.valorDeCompra = valorDeCompra;
+        this.valorCompra = valorCompra;
+        this.estado = estado;
     }
 
     @Override
     public void locar(int dias, Calendar data, Cliente cliente) {
-        estado = Estado.Locado;
         locacao = new Locacao();
         locacao.setDiasLocacao(dias);
         locacao.setDataLocacao(data);
@@ -44,6 +45,7 @@ public abstract class Veiculo implements VeiculoI {
         double valorDiaria = getValorDiariaLocacao();
         double valorLocacao = dias * valorDiaria;
         locacao.setValorLocacao(valorLocacao);
+        estado = Estado.Locado;
     }
 
     @Override
@@ -88,7 +90,7 @@ public abstract class Veiculo implements VeiculoI {
 
     @Override
     public double getValorParaVenda() {
-        return valorDeCompra * 0.1;
+        return valorCompra * 0.1;
     }
 
     @Override
@@ -96,5 +98,12 @@ public abstract class Veiculo implements VeiculoI {
         // Implementação do cálculo do valor da diária de locação
         return 100.0; // Exemplo: valor fixo para a diária de locação
     }
+      
+    public double getValorCompra() {
+        return valorCompra;
+    }
+      
+    public abstract String getModelo();
+    
 }
 

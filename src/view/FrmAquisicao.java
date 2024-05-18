@@ -42,9 +42,9 @@ public class FrmAquisicao extends javax.swing.JFrame {
                 v.getId(),
                 v.getMarca(),
                 v.getModelo(),
+                v.getAno(),
                 v.getCategoria().getDescricao(),
                 v.getPlaca(),
-                v.getAno(),
                 df.format(v.getValorCompra()),
                 v.getTipo(),
                 v.getEstado().getDescricao(),
@@ -52,6 +52,7 @@ public class FrmAquisicao extends javax.swing.JFrame {
             });
         }  
     }
+      
 
     /**
      * Creates new form FrmAquisicao
@@ -89,9 +90,6 @@ public class FrmAquisicao extends javax.swing.JFrame {
     jLabel6 = new javax.swing.JLabel();
     cbtipo = new javax.swing.JComboBox<>();
     painelLista = new javax.swing.JPanel();
-    jLabel15 = new javax.swing.JLabel();
-    txtpesquisa = new javax.swing.JTextField();
-    btnbusca = new javax.swing.JButton();
     jScrollPane1 = new javax.swing.JScrollPane();
     tabelaVeiculos = new javax.swing.JTable();
 
@@ -135,12 +133,13 @@ public class FrmAquisicao extends javax.swing.JFrame {
     jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
     jLabel13.setText("Valor de Compra:");
 
-    try {
-      txtvalor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("######,##")));
-    } catch (java.text.ParseException ex) {
-      ex.printStackTrace();
-    }
+    txtvalor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
     txtvalor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+    txtvalor.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        txtvalorActionPerformed(evt);
+      }
+    });
 
     jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
     jLabel4.setText("Categoria:");
@@ -343,41 +342,17 @@ public class FrmAquisicao extends javax.swing.JFrame {
 
     painelLista.setBackground(new java.awt.Color(255, 255, 255));
 
-    jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-    jLabel15.setText("Código:");
-
-    txtpesquisa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-    txtpesquisa.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        txtpesquisaActionPerformed(evt);
-      }
-    });
-    txtpesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
-      public void keyPressed(java.awt.event.KeyEvent evt) {
-        txtpesquisaKeyPressed(evt);
-      }
-    });
-
-    btnbusca.setBackground(new java.awt.Color(240, 240, 240));
-    btnbusca.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-    btnbusca.setText("Pesquisar");
-    btnbusca.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        btnbuscaActionPerformed(evt);
-      }
-    });
-
     tabelaVeiculos.setBackground(new java.awt.Color(240, 240, 240));
     tabelaVeiculos.setModel(new javax.swing.table.DefaultTableModel(
       new Object [][] {
 
       },
       new String [] {
-        "Código", "Marca", "Modelo", "Categoria", "Placa", "Ano", "Valor da Compra", "Tipo", "Estado"
+        "Código", "Marca", "Modelo", "Ano", "Categoria", "Placa", "Valor da Compra", "Tipo", "Estado"
       }
     ) {
       boolean[] canEdit = new boolean [] {
-        false, false, false, false, true, false, true, true, true
+        false, false, false, false, false, true, true, true, true
       };
 
       public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -390,17 +365,6 @@ public class FrmAquisicao extends javax.swing.JFrame {
       }
     });
     jScrollPane1.setViewportView(tabelaVeiculos);
-    if (tabelaVeiculos.getColumnModel().getColumnCount() > 0) {
-      tabelaVeiculos.getColumnModel().getColumn(0).setHeaderValue("Código");
-      tabelaVeiculos.getColumnModel().getColumn(1).setHeaderValue("Marca");
-      tabelaVeiculos.getColumnModel().getColumn(2).setHeaderValue("Modelo");
-      tabelaVeiculos.getColumnModel().getColumn(3).setHeaderValue("Categoria");
-      tabelaVeiculos.getColumnModel().getColumn(4).setHeaderValue("Placa");
-      tabelaVeiculos.getColumnModel().getColumn(5).setHeaderValue("Ano");
-      tabelaVeiculos.getColumnModel().getColumn(6).setHeaderValue("Valor da Compra");
-      tabelaVeiculos.getColumnModel().getColumn(7).setHeaderValue("Tipo");
-      tabelaVeiculos.getColumnModel().getColumn(8).setHeaderValue("Estado");
-    }
 
     javax.swing.GroupLayout painelListaLayout = new javax.swing.GroupLayout(painelLista);
     painelLista.setLayout(painelListaLayout);
@@ -408,26 +372,14 @@ public class FrmAquisicao extends javax.swing.JFrame {
       painelListaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(painelListaLayout.createSequentialGroup()
         .addGap(20, 20, 20)
-        .addGroup(painelListaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 840, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addGroup(painelListaLayout.createSequentialGroup()
-            .addComponent(jLabel15)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(txtpesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(18, 18, 18)
-            .addComponent(btnbusca)))
+        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 840, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addContainerGap(15, Short.MAX_VALUE))
     );
     painelListaLayout.setVerticalGroup(
       painelListaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(painelListaLayout.createSequentialGroup()
         .addGap(23, 23, 23)
-        .addGroup(painelListaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(jLabel15)
-          .addComponent(txtpesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(btnbusca, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addGap(18, 18, 18)
-        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addContainerGap(70, Short.MAX_VALUE))
     );
 
@@ -461,18 +413,6 @@ public class FrmAquisicao extends javax.swing.JFrame {
  
     }//GEN-LAST:event_tabelaVeiculosMouseClicked
 
-    private void btnbuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscaActionPerformed
-
-    }//GEN-LAST:event_btnbuscaActionPerformed
-
-    private void txtpesquisaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtpesquisaKeyPressed
-
-    }//GEN-LAST:event_txtpesquisaKeyPressed
-
-    private void txtpesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpesquisaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtpesquisaActionPerformed
-
     private void cbtipoAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbtipoAncestorAdded
         // TODO add your handling code here:
     }//GEN-LAST:event_cbtipoAncestorAdded
@@ -481,6 +421,7 @@ public class FrmAquisicao extends javax.swing.JFrame {
         // cadastrar um novo veículo
         Veiculo veiculo = null;
         String tipo = cbtipo.getSelectedItem().toString();
+        String numero = txtvalor.getText().replace(",", ".");
         
         if (cbtipo.getSelectedItem() == "Automóvel") {
             veiculo = new Automovel();
@@ -497,7 +438,7 @@ public class FrmAquisicao extends javax.swing.JFrame {
             veiculo.setCategoria(Categoria.fromDescricao(cbcategoria.getSelectedItem().toString()));
             veiculo.setAno(Integer.parseInt(txtano.getText()));
             veiculo.setPlaca(txtplaca.getText());
-            veiculo.setValorCompra(Double.parseDouble(txtvalor.getText()));
+            veiculo.setValorCompra(Double.parseDouble(numero));
             
             if (veiculo instanceof Automovel automovel) {
                 automovel.setModelo(ModeloAutomovel.valueOf(cbmodelo.getSelectedItem().toString()));
@@ -532,28 +473,7 @@ public class FrmAquisicao extends javax.swing.JFrame {
     }//GEN-LAST:event_cbmodeloActionPerformed
 
     private void cbmodeloAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbmodeloAncestorAdded
-
-        cbmodelo.removeAllItems();
-        
-        if (cbtipo.getSelectedItem() == "Automóvel") {
-            for (ModeloAutomovel modelo : ModeloAutomovel.values()) {
-                cbmodelo.addItem(modelo.toString());
-            }
-        }
-        
-        else if (cbtipo.getSelectedItem() == "Motocicleta") {
-            for (ModeloMotocicleta modelo : ModeloMotocicleta.values()) {
-                cbmodelo.addItem(modelo.toString());
-            }
-        }
-        
-        else if (cbtipo.getSelectedItem() == "Van") {
-            for (ModeloVan modelo : ModeloVan.values()) {
-                cbmodelo.addItem(modelo.toString());
-            }
-        }
-        
-        
+        // TODO add your handling code here:
     }//GEN-LAST:event_cbmodeloAncestorAdded
 
     private void cbcategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbcategoriaActionPerformed
@@ -596,6 +516,8 @@ public class FrmAquisicao extends javax.swing.JFrame {
             }
         }
         
+        cbmodelo.setSelectedItem(null);
+        
     }//GEN-LAST:event_cbtipoItemStateChanged
 
     private void txtplacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtplacaActionPerformed
@@ -614,6 +536,10 @@ public class FrmAquisicao extends javax.swing.JFrame {
   private void cbmarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbmarcaActionPerformed
     // TODO add your handling code here:
   }//GEN-LAST:event_cbmarcaActionPerformed
+
+  private void txtvalorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtvalorActionPerformed
+    // TODO add your handling code here:
+  }//GEN-LAST:event_txtvalorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -651,7 +577,6 @@ public class FrmAquisicao extends javax.swing.JFrame {
     }
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
-  private javax.swing.JButton btnbusca;
   private javax.swing.JButton btncadastrar;
   private javax.swing.JComboBox<String> cbcategoria;
   private javax.swing.JComboBox<String> cbmarca;
@@ -660,7 +585,6 @@ public class FrmAquisicao extends javax.swing.JFrame {
   private javax.swing.JLabel jLabel1;
   private javax.swing.JLabel jLabel13;
   private javax.swing.JLabel jLabel14;
-  private javax.swing.JLabel jLabel15;
   private javax.swing.JLabel jLabel3;
   private javax.swing.JLabel jLabel4;
   private javax.swing.JLabel jLabel5;
@@ -673,7 +597,6 @@ public class FrmAquisicao extends javax.swing.JFrame {
   private javax.swing.JTabbedPane painelVeiculo;
   private javax.swing.JTable tabelaVeiculos;
   private javax.swing.JTextField txtano;
-  private javax.swing.JTextField txtpesquisa;
   private javax.swing.JFormattedTextField txtplaca;
   private javax.swing.JFormattedTextField txtvalor;
   // End of variables declaration//GEN-END:variables

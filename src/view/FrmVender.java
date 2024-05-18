@@ -21,31 +21,6 @@ import model.Veiculo;
  */
 public class FrmVender extends javax.swing.JFrame {
   
-        public void listar() {
-        NumberFormat nf = NumberFormat.getNumberInstance(Locale.getDefault());
-        DecimalFormat df = (DecimalFormat) nf;
-        df.applyPattern("#,##0.00");
-
-        VeiculoDAO dao = new VeiculoDAO();
-        List<Veiculo> veiculos = dao.listarVeiculos();
-        DefaultTableModel dados = (DefaultTableModel) tabelaVeiculos.getModel();
-        dados.setNumRows(0);
-        
-        for (Veiculo v : veiculos) {
-            dados.addRow(new Object[] {
-                v.getId(),
-                v.getMarca(),
-                v.getModelo(),
-                v.getCategoria(),
-                v.getPlaca(),
-                v.getAno(),
-                df.format(v.getValorCompra()),
-                v.getTipo(),
-                v.getEstado().getDescricao(),
-                
-            });
-        }  
-       }  
   /**
    * Creates new form FrmVender
    */
@@ -68,7 +43,7 @@ public class FrmVender extends javax.swing.JFrame {
     jLabel1 = new javax.swing.JLabel();
     painelLista = new javax.swing.JPanel();
     jLabel15 = new javax.swing.JLabel();
-    txtpesquisa = new javax.swing.JTextField();
+    txtcodigo = new javax.swing.JTextField();
     btnbusca = new javax.swing.JButton();
     jScrollPane1 = new javax.swing.JScrollPane();
     tabelaVeiculos = new javax.swing.JTable();
@@ -119,15 +94,15 @@ public class FrmVender extends javax.swing.JFrame {
     jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
     jLabel15.setText("Código:");
 
-    txtpesquisa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-    txtpesquisa.addActionListener(new java.awt.event.ActionListener() {
+    txtcodigo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+    txtcodigo.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        txtpesquisaActionPerformed(evt);
+        txtcodigoActionPerformed(evt);
       }
     });
-    txtpesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
+    txtcodigo.addKeyListener(new java.awt.event.KeyAdapter() {
       public void keyPressed(java.awt.event.KeyEvent evt) {
-        txtpesquisaKeyPressed(evt);
+        txtcodigoKeyPressed(evt);
       }
     });
 
@@ -146,11 +121,11 @@ public class FrmVender extends javax.swing.JFrame {
 
       },
       new String [] {
-        "Código", "Marca", "Modelo", "Categoria", "Placa", "Ano", "Valor da Compra", "Tipo", "Estado"
+        "Código", "Marca", "Modelo", "Ano", "Placa", "Preço para venda", "Estado"
       }
     ) {
       boolean[] canEdit = new boolean [] {
-        false, false, false, true, true, false, true, true, true
+        false, false, false, false, true, true, true
       };
 
       public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -288,7 +263,7 @@ public class FrmVender extends javax.swing.JFrame {
                   .addGroup(painelListaLayout.createSequentialGroup()
                     .addComponent(jLabel15)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(txtpesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelListaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                   .addComponent(btnbusca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -316,7 +291,7 @@ public class FrmVender extends javax.swing.JFrame {
         .addGap(23, 23, 23)
         .addGroup(painelListaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(jLabel15)
-          .addComponent(txtpesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addComponent(btnbusca, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addComponent(jLabel6)
           .addComponent(cbtipo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -360,21 +335,45 @@ public class FrmVender extends javax.swing.JFrame {
     setLocationRelativeTo(null);
   }// </editor-fold>//GEN-END:initComponents
 
-  private void txtpesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpesquisaActionPerformed
+  private void txtcodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcodigoActionPerformed
     // TODO add your handling code here:
-  }//GEN-LAST:event_txtpesquisaActionPerformed
+  }//GEN-LAST:event_txtcodigoActionPerformed
 
-  private void txtpesquisaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtpesquisaKeyPressed
+  private void txtcodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcodigoKeyPressed
 
-  }//GEN-LAST:event_txtpesquisaKeyPressed
+  }//GEN-LAST:event_txtcodigoKeyPressed
 
   private void btnbuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscaActionPerformed
-    tabelaVeiculos.setVisible(true);
+            
+    int id = Integer.parseInt(txtcodigo.getText());
+    NumberFormat nf = NumberFormat.getNumberInstance(Locale.getDefault());
+    DecimalFormat df = (DecimalFormat) nf;
+    df.applyPattern("#,##0.00");
 
+    VeiculoDAO dao = new VeiculoDAO();
+    Veiculo veiculo = dao.buscarVeiculoPorCodigo(id);
+    
+    if (veiculo != null) {
+      DefaultTableModel dados = (DefaultTableModel) tabelaVeiculos.getModel();
+      Double valorVenda = veiculo.getValorParaVenda();
+      dados.setNumRows(0);
+      dados.addRow(new Object[]{
+        veiculo.getId(),
+        veiculo.getMarca(),
+        veiculo.getModelo(),
+        veiculo.getAno(),
+        veiculo.getPlaca(),
+        df.format(valorVenda),
+        veiculo.getEstado().getDescricao(),});
+    }
+    
+    txtcodigo.setText("");
+    tabelaVeiculos.setVisible(true);
+     
   }//GEN-LAST:event_btnbuscaActionPerformed
 
   private void tabelaVeiculosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaVeiculosMouseClicked
-    // Pega os dados do cliente
+    
 
   }//GEN-LAST:event_tabelaVeiculosMouseClicked
 
@@ -389,6 +388,7 @@ public class FrmVender extends javax.swing.JFrame {
       
       VeiculoDAO dao = new VeiculoDAO();
       dao.venderVeiculo(id);
+      tabelaVeiculos.setVisible(false);
       
     } else {
       JOptionPane.showMessageDialog(null, "Nenhuma linha selecionada");
@@ -398,7 +398,6 @@ public class FrmVender extends javax.swing.JFrame {
 
   private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
     //Listar os veículos
-    listar();
   }//GEN-LAST:event_formWindowActivated
 
   private void cbtipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbtipoItemStateChanged
@@ -447,15 +446,93 @@ public class FrmVender extends javax.swing.JFrame {
   }//GEN-LAST:event_cbcategoriaActionPerformed
 
   private void btntipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntipoActionPerformed
-    // TODO add your handling code here:
+    // Filtrar por tipo
+    String tipo = cbtipo.getSelectedItem().toString();
+    
+    NumberFormat nf = NumberFormat.getNumberInstance(Locale.getDefault());
+    DecimalFormat df = (DecimalFormat) nf;
+    df.applyPattern("#,##0.00");
+    
+    VeiculoDAO dao = new VeiculoDAO();
+    List<Veiculo> veiculos = dao.listarVeiculosPorTipo(tipo);
+    tabelaVeiculos.setVisible(true);
+    DefaultTableModel dados = (DefaultTableModel) tabelaVeiculos.getModel();
+    dados.setNumRows(0);
+
+    for (Veiculo v : veiculos) {
+      Double valorVenda = v.getValorParaVenda();
+      dados.addRow(new Object[]{
+        v.getId(),
+        v.getMarca(),
+        v.getModelo(),
+        v.getAno(),
+        v.getPlaca(),
+        df.format(valorVenda),
+        v.getEstado().getDescricao(),});
+    }
+    
+    cbtipo.setSelectedItem(null);
+    
   }//GEN-LAST:event_btntipoActionPerformed
 
   private void btncategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncategoriaActionPerformed
-    // TODO add your handling code here:
+    // Filtrar por Categoria
+    String categoria = cbcategoria.getSelectedItem().toString();
+    
+    NumberFormat nf = NumberFormat.getNumberInstance(Locale.getDefault());
+    DecimalFormat df = (DecimalFormat) nf;
+    df.applyPattern("#,##0.00");
+    
+    VeiculoDAO dao = new VeiculoDAO();
+    List<Veiculo> veiculos = dao.listarVeiculosPorCategoria(categoria);
+    tabelaVeiculos.setVisible(true);
+    DefaultTableModel dados = (DefaultTableModel) tabelaVeiculos.getModel();
+    dados.setNumRows(0);
+
+    for (Veiculo v : veiculos) {
+      Double valorVenda = v.getValorParaVenda();
+      dados.addRow(new Object[]{
+        v.getId(),
+        v.getMarca(),
+        v.getModelo(),
+        v.getAno(),
+        v.getPlaca(),
+        df.format(valorVenda),
+        v.getEstado().getDescricao(),});
+    }
+    
+    cbcategoria.setSelectedItem(null);
+    
   }//GEN-LAST:event_btncategoriaActionPerformed
 
   private void btnmarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmarcaActionPerformed
-    // TODO add your handling code here:
+    //Filtrar por Marca
+    String marca = cbmarca.getSelectedItem().toString();
+    
+    NumberFormat nf = NumberFormat.getNumberInstance(Locale.getDefault());
+    DecimalFormat df = (DecimalFormat) nf;
+    df.applyPattern("#,##0.00");
+    
+    VeiculoDAO dao = new VeiculoDAO();
+    List<Veiculo> veiculos = dao.listarVeiculosPorMarca(marca);
+    tabelaVeiculos.setVisible(true);
+    DefaultTableModel dados = (DefaultTableModel) tabelaVeiculos.getModel();
+    dados.setNumRows(0);
+
+    for (Veiculo v : veiculos) {
+      Double valorVenda = v.getValorParaVenda();
+      dados.addRow(new Object[]{
+        v.getId(),
+        v.getMarca(),
+        v.getModelo(),
+        v.getAno(),
+        v.getPlaca(),
+        df.format(valorVenda),
+        v.getEstado().getDescricao(),});
+    }
+    
+    cbmarca.setSelectedItem(null);
+
   }//GEN-LAST:event_btnmarcaActionPerformed
 
   /**
@@ -511,6 +588,6 @@ public class FrmVender extends javax.swing.JFrame {
   private javax.swing.JScrollPane jScrollPane1;
   private javax.swing.JPanel painelLista;
   private javax.swing.JTable tabelaVeiculos;
-  private javax.swing.JTextField txtpesquisa;
+  private javax.swing.JTextField txtcodigo;
   // End of variables declaration//GEN-END:variables
 }

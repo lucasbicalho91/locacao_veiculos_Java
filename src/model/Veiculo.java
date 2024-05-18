@@ -98,7 +98,7 @@ public abstract class Veiculo implements VeiculoI {
 
     @Override
     public double getValorParaVenda() {
-        return valorCompra * 0.1;
+        return valorCompra - (valorCompra * 0.1);
     }
 
     @Override

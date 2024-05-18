@@ -32,7 +32,6 @@ public class FrmVeiculos extends javax.swing.JFrame {
     jTabbedPane1 = new javax.swing.JTabbedPane();
     painel_inicial = new javax.swing.JPanel();
     jTextField1 = new javax.swing.JTextField();
-    btnlistar = new javax.swing.JButton();
     btncadastrar = new javax.swing.JButton();
     btnlocar = new javax.swing.JButton();
     btnvender = new javax.swing.JButton();
@@ -80,10 +79,6 @@ public class FrmVeiculos extends javax.swing.JFrame {
       }
     });
 
-    btnlistar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-    btnlistar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/editar.png"))); // NOI18N
-    btnlistar.setText("Verificar a lista de todos os veículos");
-
     btncadastrar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
     btncadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/novo.png"))); // NOI18N
     btncadastrar.setText("Cadastrar um novo veículo");
@@ -100,6 +95,11 @@ public class FrmVeiculos extends javax.swing.JFrame {
     btnvender.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
     btnvender.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/money_icon.png"))); // NOI18N
     btnvender.setText("Vender um veículo");
+    btnvender.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnvenderActionPerformed(evt);
+      }
+    });
 
     btnlocar1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
     btnlocar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/car_icon.png"))); // NOI18N
@@ -110,19 +110,15 @@ public class FrmVeiculos extends javax.swing.JFrame {
     painel_inicialLayout.setHorizontalGroup(
       painel_inicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(painel_inicialLayout.createSequentialGroup()
-        .addGroup(painel_inicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addGroup(painel_inicialLayout.createSequentialGroup()
-            .addGap(229, 229, 229)
-            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-          .addGroup(painel_inicialLayout.createSequentialGroup()
-            .addGap(82, 82, 82)
-            .addGroup(painel_inicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addComponent(btnlocar, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)
-              .addGroup(painel_inicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                .addComponent(btnlistar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnvender, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btncadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnlocar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+        .addGap(97, 97, 97)
+        .addGroup(painel_inicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+          .addGroup(painel_inicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(btnlocar, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(painel_inicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+              .addComponent(btnvender, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+              .addComponent(btncadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+              .addComponent(btnlocar1, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)))
+          .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         .addContainerGap(257, Short.MAX_VALUE))
     );
     painel_inicialLayout.setVerticalGroup(
@@ -130,7 +126,7 @@ public class FrmVeiculos extends javax.swing.JFrame {
       .addGroup(painel_inicialLayout.createSequentialGroup()
         .addGap(17, 17, 17)
         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addGap(18, 18, 18)
+        .addGap(44, 44, 44)
         .addComponent(btnlocar1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addGap(18, 18, 18)
         .addComponent(btnlocar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -138,9 +134,7 @@ public class FrmVeiculos extends javax.swing.JFrame {
         .addComponent(btncadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addGap(18, 18, 18)
         .addComponent(btnvender, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addGap(18, 18, 18)
-        .addComponent(btnlistar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addContainerGap(34, Short.MAX_VALUE))
+        .addContainerGap(86, Short.MAX_VALUE))
     );
 
     jTabbedPane1.addTab("Página Inicial", painel_inicial);
@@ -182,6 +176,14 @@ public class FrmVeiculos extends javax.swing.JFrame {
   private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
     // TODO add your handling code here:
   }//GEN-LAST:event_jTextField1ActionPerformed
+
+  private void btnvenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnvenderActionPerformed
+    
+    FrmVender telavenda = new FrmVender();
+    telavenda.setVisible(true);
+    this.dispose();
+    
+  }//GEN-LAST:event_btnvenderActionPerformed
 
     /**
      * @param args the command line arguments
@@ -476,7 +478,6 @@ public class FrmVeiculos extends javax.swing.JFrame {
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton btncadastrar;
-  private javax.swing.JButton btnlistar;
   private javax.swing.JButton btnlocar;
   private javax.swing.JButton btnlocar1;
   private javax.swing.JButton btnvender;

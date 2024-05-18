@@ -769,7 +769,7 @@ public class FrmClientes extends javax.swing.JFrame {
 
     private void txtcepKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcepKeyPressed
         
-            //Programacao do keypress
+    //Programacao do keypress
     if (evt.getKeyCode () == KeyEvent.VK_ENTER) { 
         Cliente obj = new Cliente();
         ClienteDAO dao = new ClienteDAO();

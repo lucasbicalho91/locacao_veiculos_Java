@@ -248,6 +248,44 @@ public class ClienteDAO {
         }
 
     }
+    public Cliente buscarClientePorCpf(String cpf) {
+
+        try {
+
+            String sql = "select * from tb_clientes where cpf = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, cpf);
+            ResultSet rs = stmt.executeQuery();
+            
+            Cliente cliente = new Cliente();
+
+            if (rs.next()) {       
+
+                cliente.setId(rs.getInt("id"));
+                cliente.setNome(rs.getString("nome"));
+                cliente.setSobrenome(rs.getString("sobrenome"));
+                cliente.setRg(rs.getString("rg"));
+                cliente.setCpf(rs.getString("cpf"));
+                cliente.setEmail(rs.getString("email"));
+                cliente.setCelular(rs.getString("celular"));
+                cliente.setCep(rs.getString("cep"));
+                cliente.setEndereco(rs.getString("endereco"));
+                cliente.setNumero(rs.getInt("numero"));
+                cliente.setComplemento(rs.getString("complemento"));
+                cliente.setBairro(rs.getString("bairro"));
+                cliente.setCidade(rs.getString("cidade"));
+                cliente.setUf(rs.getString("uf"));
+                cliente.setLocado(rs.getBoolean("veiculo_locado"));
+            }
+            
+            return cliente;
+
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "Cliente não encontrado!");
+            return null;
+        }
+
+    }
     
     public Cliente buscaCep(String cep) {
 

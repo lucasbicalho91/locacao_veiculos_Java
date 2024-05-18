@@ -12,11 +12,22 @@ import java.util.Calendar;
  */
 
 public class Locacao {
+  
     private int diasLocacao;
     private Calendar dataLocacao;
     private Cliente cliente;
     private double valorLocacao;
 
+    public Locacao() {
+    }
+
+    public Locacao(int diasLocacao, Calendar dataLocacao, Cliente cliente, double valorLocacao) {
+      this.diasLocacao = diasLocacao;
+      this.dataLocacao = dataLocacao;
+      this.cliente = cliente;
+      this.valorLocacao = valorLocacao;
+    }
+    
     public int getDiasLocacao() {
         return diasLocacao;
     }

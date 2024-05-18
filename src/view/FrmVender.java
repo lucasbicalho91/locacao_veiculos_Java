@@ -366,9 +366,8 @@ public class FrmVender extends javax.swing.JFrame {
         df.format(valorVenda),
         veiculo.getEstado().getDescricao(),});
     }
-    
-    txtcodigo.setText("");
     tabelaVeiculos.setVisible(true);
+    txtcodigo.setText("");
      
   }//GEN-LAST:event_btnbuscaActionPerformed
 
@@ -447,6 +446,7 @@ public class FrmVender extends javax.swing.JFrame {
 
   private void btntipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntipoActionPerformed
     // Filtrar por tipo
+    String coluna = "tipo_veiculo";
     String tipo = cbtipo.getSelectedItem().toString();
     
     NumberFormat nf = NumberFormat.getNumberInstance(Locale.getDefault());
@@ -454,7 +454,7 @@ public class FrmVender extends javax.swing.JFrame {
     df.applyPattern("#,##0.00");
     
     VeiculoDAO dao = new VeiculoDAO();
-    List<Veiculo> veiculos = dao.listarVeiculosPorTipo(tipo);
+    List<Veiculo> veiculos = dao.filtrarVeiculos(coluna, tipo);
     tabelaVeiculos.setVisible(true);
     DefaultTableModel dados = (DefaultTableModel) tabelaVeiculos.getModel();
     dados.setNumRows(0);
@@ -477,6 +477,7 @@ public class FrmVender extends javax.swing.JFrame {
 
   private void btncategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncategoriaActionPerformed
     // Filtrar por Categoria
+    String coluna = "categoria";
     String categoria = cbcategoria.getSelectedItem().toString();
     
     NumberFormat nf = NumberFormat.getNumberInstance(Locale.getDefault());
@@ -484,7 +485,7 @@ public class FrmVender extends javax.swing.JFrame {
     df.applyPattern("#,##0.00");
     
     VeiculoDAO dao = new VeiculoDAO();
-    List<Veiculo> veiculos = dao.listarVeiculosPorCategoria(categoria);
+    List<Veiculo> veiculos = dao.filtrarVeiculos(coluna, categoria);
     tabelaVeiculos.setVisible(true);
     DefaultTableModel dados = (DefaultTableModel) tabelaVeiculos.getModel();
     dados.setNumRows(0);
@@ -507,6 +508,7 @@ public class FrmVender extends javax.swing.JFrame {
 
   private void btnmarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmarcaActionPerformed
     //Filtrar por Marca
+    String coluna = "marca";
     String marca = cbmarca.getSelectedItem().toString();
     
     NumberFormat nf = NumberFormat.getNumberInstance(Locale.getDefault());
@@ -514,7 +516,7 @@ public class FrmVender extends javax.swing.JFrame {
     df.applyPattern("#,##0.00");
     
     VeiculoDAO dao = new VeiculoDAO();
-    List<Veiculo> veiculos = dao.listarVeiculosPorMarca(marca);
+    List<Veiculo> veiculos = dao.filtrarVeiculos(coluna, marca);
     tabelaVeiculos.setVisible(true);
     DefaultTableModel dados = (DefaultTableModel) tabelaVeiculos.getModel();
     dados.setNumRows(0);

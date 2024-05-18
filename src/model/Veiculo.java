@@ -46,13 +46,9 @@ public abstract class Veiculo implements VeiculoI {
 
     @Override
     public void locar(int dias, Calendar data, Cliente cliente) {
-        locacao = new Locacao();
-        locacao.setDiasLocacao(dias);
-        locacao.setDataLocacao(data);
-        locacao.setCliente(cliente);
         double valorDiaria = getValorDiariaLocacao();
         double valorLocacao = dias * valorDiaria;
-        locacao.setValorLocacao(valorLocacao);
+        locacao = new Locacao(dias, data, cliente, valorLocacao);
         estado = Estado.LOCADO;
     }
 
@@ -63,6 +59,7 @@ public abstract class Veiculo implements VeiculoI {
 
     @Override
     public void devolver() {
+        locacao = null;
         estado = Estado.DISPONIVEL;
     }
 
@@ -103,8 +100,7 @@ public abstract class Veiculo implements VeiculoI {
 
     @Override
     public double getValorDiariaLocacao() {
-        // Implementação do cálculo do valor da diária de locação
-        return 100.0; // Exemplo: valor fixo para a diária de locação
+        return 100.0; 
     }
       
     public double getValorCompra() {

@@ -207,6 +207,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Locar um ve&#xed;culo para um cliente"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnlocar1ActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

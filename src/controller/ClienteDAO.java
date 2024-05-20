@@ -102,28 +102,27 @@ public class ClienteDAO {
     //Excluir
     public void excluirCliente(Cliente cliente) {
         
-        if (!cliente.isLocado()) {
-            try {String sql = "delete from tb_clientes where id = ?";
+        if (cliente.getLocado() == 0) {
+          try {String sql = "delete from tb_clientes where id = ?";
+          
+          try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, cliente.getId());
             
-            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-                stmt.setInt(1, cliente.getId());
-                
-                stmt.execute();
-                stmt.close();
-            }
-            
-            JOptionPane.showMessageDialog(null, "Cliente excluído com sucesso");
-            
-            } catch (SQLException erro) {
-                JOptionPane.showMessageDialog(null, "Erro: " + erro);
-            }
+            stmt.execute();
+            stmt.close();
+          }
+          
+          JOptionPane.showMessageDialog(null, "Cliente excluído com sucesso");
+          
+          } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "Erro: " + erro);
+          }
         }
         else {
-            JOptionPane.showMessageDialog(null, 
-                    "Não é possível excluir cliente que possui veículo locado");
+          JOptionPane.showMessageDialog(null,
+                  "Não é possível excluir cliente que possui veículo locado");
         }
-        
-        
+          
     }
     
     //Listar
@@ -153,7 +152,7 @@ public class ClienteDAO {
                 cliente.setBairro(rs.getString("bairro"));
                 cliente.setCidade(rs.getString("cidade"));
                 cliente.setUf(rs.getString("uf"));
-                cliente.setLocado(rs.getBoolean("veiculo_locado"));
+                cliente.setLocado(rs.getInt("veiculo_locado"));
 
                 clientes.add(cliente);
             }
@@ -167,49 +166,50 @@ public class ClienteDAO {
 
     }
 
-    //buscar cliente por nome
-    public List<Cliente> listarClientePorNome(String nome) {
+    //buscar cliente por nome ou sobrenome
+    public List<Cliente> listarClientePorNome(String nome, String sobrenome) {
 
-        try {
-            List<Cliente> clientes = new ArrayList<>();
+    try {
+      List<Cliente> clientes = new ArrayList<>();
 
-            String sql = "select * from tb_clientes where nome like ?";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, nome);
-            ResultSet rs = stmt.executeQuery();
+      String sql = "select * from tb_clientes where nome like ? and sobrenome like ?";
+      PreparedStatement stmt = conn.prepareStatement(sql);
+      stmt.setString(1, nome);
+      stmt.setString(2, sobrenome);
+      ResultSet rs = stmt.executeQuery();
 
-            while (rs.next()) {
-                Cliente cliente = new Cliente();
+      while (rs.next()) {
+        Cliente cliente = new Cliente();
 
-                cliente.setId(rs.getInt("id"));
-                cliente.setNome(rs.getString("nome"));
-                cliente.setSobrenome(rs.getString("sobrenome"));
-                cliente.setRg(rs.getString("rg"));
-                cliente.setCpf(rs.getString("cpf"));
-                cliente.setEmail(rs.getString("email"));
-                cliente.setCelular(rs.getString("celular"));
-                cliente.setCep(rs.getString("cep"));
-                cliente.setEndereco(rs.getString("endereco"));
-                cliente.setNumero(rs.getInt("numero"));
-                cliente.setComplemento(rs.getString("complemento"));
-                cliente.setBairro(rs.getString("bairro"));
-                cliente.setCidade(rs.getString("cidade"));
-                cliente.setUf(rs.getString("uf"));
-                cliente.setLocado(rs.getBoolean("veiculo_locado"));
+        cliente.setId(rs.getInt("id"));
+        cliente.setNome(rs.getString("nome"));
+        cliente.setSobrenome(rs.getString("sobrenome"));
+        cliente.setRg(rs.getString("rg"));
+        cliente.setCpf(rs.getString("cpf"));
+        cliente.setEmail(rs.getString("email"));
+        cliente.setCelular(rs.getString("celular"));
+        cliente.setCep(rs.getString("cep"));
+        cliente.setEndereco(rs.getString("endereco"));
+        cliente.setNumero(rs.getInt("numero"));
+        cliente.setComplemento(rs.getString("complemento"));
+        cliente.setBairro(rs.getString("bairro"));
+        cliente.setCidade(rs.getString("cidade"));
+        cliente.setUf(rs.getString("uf"));
+        cliente.setLocado(rs.getInt("veiculo_locado"));
 
-                clientes.add(cliente);
-            }
+        clientes.add(cliente);
+      }
 
-            return clientes;
+      return clientes;
 
-        } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "Erro: " + erro);
-            return null;
-        }
-
+    } catch (SQLException erro) {
+      JOptionPane.showMessageDialog(null, "Erro: " + erro);
+      return null;
     }
+
+  }
  
-    //buscar cliente por nome
+    //buscar cliente por id
     public Cliente buscarClientePorCodigo(int id) {
 
         try {
@@ -237,7 +237,7 @@ public class ClienteDAO {
                 cliente.setBairro(rs.getString("bairro"));
                 cliente.setCidade(rs.getString("cidade"));
                 cliente.setUf(rs.getString("uf"));
-                cliente.setLocado(rs.getBoolean("veiculo_locado"));
+                cliente.setLocado(rs.getInt("veiculo_locado"));
             }
             
             return cliente;
@@ -246,8 +246,8 @@ public class ClienteDAO {
             JOptionPane.showMessageDialog(null, "Cliente não encontrado!");
             return null;
         }
-
     }
+    
     public Cliente buscarClientePorCpf(String cpf) {
 
         try {
@@ -275,7 +275,7 @@ public class ClienteDAO {
                 cliente.setBairro(rs.getString("bairro"));
                 cliente.setCidade(rs.getString("cidade"));
                 cliente.setUf(rs.getString("uf"));
-                cliente.setLocado(rs.getBoolean("veiculo_locado"));
+                cliente.setLocado(rs.getInt("veiculo_locado"));
             }
             
             return cliente;

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import jdbc.ConnectionFactory;
+import model.Locacao;
 import model.Veiculo;
 import utilities.VeiculoFactory;
 
@@ -49,7 +50,6 @@ public class VeiculoDAO {
         stmt.execute();
         stmt.close();
       }
-
       JOptionPane.showMessageDialog(null, "Veículo cadastrado com sucesso");
 
     } catch (SQLException erro) {
@@ -76,7 +76,6 @@ public class VeiculoDAO {
         stmt.execute();
         stmt.close();
       }
-
       JOptionPane.showMessageDialog(null, "Veículo vendido com sucesso");
         }
     } catch (SQLException erro) {
@@ -105,29 +104,52 @@ public class VeiculoDAO {
         return veiculos;
     }
 
-  public List<Veiculo> filtrarVeiculos(String campo, String valor) {
-      List<Veiculo> veiculos = new ArrayList<>();
-      String sql = "SELECT * FROM tb_veiculos WHERE " + campo + " = ? AND estado <> ?";
-      try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-          stmt.setString(1, valor);
-          stmt.setString(2, Estado.VENDIDO.getDescricao());
-          ResultSet rs = stmt.executeQuery();
-          while (rs.next()) {
-              Veiculo veiculo = VeiculoFactory.criarVeiculo(rs);
-              if (veiculo != null) {
-                  VeiculoFactory.popularVeiculo(rs, veiculo);
-                  veiculos.add(veiculo);
-              }
-          }
-          if (veiculos.isEmpty()) {
-              JOptionPane.showMessageDialog(null, 
-                      "Nenhum veículo de " + campo + " " + valor + " disponível para venda.");
-          }
-      } catch (SQLException erro) {
-          JOptionPane.showMessageDialog(null, "Erro: " + erro);
-      }
-      return veiculos;
-  }
+    public List<Veiculo> filtrarVeiculos(Object marca, Object categoria, Object tipo) {
+        List<Veiculo> veiculos = new ArrayList<>();
+        StringBuilder sqlBuilder = new StringBuilder("SELECT * FROM tb_veiculos WHERE 1=1");
+
+        if (marca != null) {
+            sqlBuilder.append(" AND marca = ?");
+        }
+        if (categoria != null) {
+            sqlBuilder.append(" AND categoria = ?");
+        }
+        if (tipo != null) {
+            sqlBuilder.append(" AND tipo_veiculo = ?");
+        }
+        sqlBuilder.append(" AND estado = ?");
+
+        try (PreparedStatement stmt = conn.prepareStatement(sqlBuilder.toString())) {
+            int index = 1;
+
+            if (marca != null) {
+                stmt.setObject(index++, marca);
+            }
+            if (categoria != null) {
+                stmt.setObject(index++, categoria);
+            }
+            if (tipo != null) {
+                stmt.setObject(index++, tipo);
+            }
+            stmt.setString(index, Estado.DISPONIVEL.getDescricao());
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Veiculo veiculo = VeiculoFactory.criarVeiculo(rs);
+                if (veiculo != null) {
+                    VeiculoFactory.popularVeiculo(rs, veiculo);
+                    veiculos.add(veiculo);
+                }
+            }
+            if (veiculos.isEmpty()) {
+                JOptionPane.showMessageDialog(null, 
+                        "Nenhum veículo disponível para venda ou locação no filtro selecionado.");
+            }
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "Erro: " + erro);
+        }
+        return veiculos;
+    }
   
   public Veiculo buscarVeiculoPorCodigo(int id) {
       String sql = "SELECT * FROM tb_veiculos WHERE id = ?";
@@ -143,7 +165,8 @@ public class VeiculoDAO {
                       return veiculo;
                   }
               } else {
-                  JOptionPane.showMessageDialog(null, "Esse veículo não está disponível para venda.");
+                  JOptionPane.showMessageDialog(null, 
+                          "Esse veículo não está disponível para venda");
               }
           } else {
               JOptionPane.showMessageDialog(null, "Veículo não encontrado.");
@@ -153,5 +176,32 @@ public class VeiculoDAO {
       }
       return null;
   }
+  
+    public List<Veiculo> listarVeiculosLocados() {
+        List<Veiculo> veiculos = new ArrayList<>();
+        String sql = "SELECT v.*, l.id AS id_locacao, l.id_cliente, l.dias, l.valor, l.data_locacao, c.nome " + 
+                     "AS nome_cliente FROM tb_veiculos v " +
+                     "INNER JOIN tb_locacao l ON v.id = l.id_veiculo " +
+                     "INNER JOIN tb_clientes c ON l.id_cliente = c.id";
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Veiculo veiculo = VeiculoFactory.criarVeiculo(rs);
+                    if (veiculo != null) {
+                        VeiculoFactory.popularVeiculo(rs, veiculo);
+                        Locacao locacao = VeiculoFactory.popularLocacao(rs);
+                        veiculo.setLocacao(locacao);
+                        veiculos.add(veiculo);
+                    }
+                }
+            }
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "Erro: " + erro);
+        }
+
+        return veiculos;
+    }
+
   
 }

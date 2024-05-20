@@ -13,6 +13,7 @@ import java.util.Calendar;
 
 public class Locacao {
   
+    private int id;
     private int diasLocacao;
     private Calendar dataLocacao;
     private Cliente cliente;
@@ -27,7 +28,15 @@ public class Locacao {
       this.cliente = cliente;
       this.valorLocacao = valorLocacao;
     }
-    
+
+    public int getId() {
+      return id;
+    }
+
+    public void setId(int id) {
+      this.id = id;
+    }
+ 
     public int getDiasLocacao() {
         return diasLocacao;
     }
@@ -59,5 +68,17 @@ public class Locacao {
     public void setValorLocacao(double valorLocacao) {
         this.valorLocacao = valorLocacao;
     }
+
+        @Override
+    public String toString() {
+        return "Locacao{" +
+                "dias=" + diasLocacao +
+                ", data=" + dataLocacao.getTime() + 
+                ", cliente=" + cliente.getId() +
+                ", cliente=" + cliente.getNome() +
+                ", valor=" + valorLocacao +
+                '}';
+    }
+    
 }
 

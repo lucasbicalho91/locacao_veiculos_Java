@@ -49,6 +49,7 @@ public abstract class Veiculo implements VeiculoI {
         double valorDiaria = getValorDiariaLocacao();
         double valorLocacao = dias * valorDiaria;
         locacao = new Locacao(dias, data, cliente, valorLocacao);
+        cliente.setLocado(cliente.getLocado() + 1);
         estado = Estado.LOCADO;
     }
 
@@ -59,8 +60,11 @@ public abstract class Veiculo implements VeiculoI {
 
     @Override
     public void devolver() {
+      if (locacao != null) {
+        Cliente cliente = locacao.getCliente();
         locacao = null;
         estado = Estado.DISPONIVEL;
+      }
     }
 
     @Override
@@ -100,7 +104,7 @@ public abstract class Veiculo implements VeiculoI {
 
     @Override
     public double getValorDiariaLocacao() {
-        return 100.0; 
+        return 0.0; 
     }
       
     public double getValorCompra() {
@@ -153,5 +157,19 @@ public abstract class Veiculo implements VeiculoI {
         this.id = id;
     }
     
+    @Override
+    public String toString() {
+        return "Veiculo{" +
+                "id=" + id +
+                ", marca=" + marca +
+                ", categoria=" + categoria +
+                ", locacao=" + (locacao != null ? locacao.toString() : "null") +
+                ", placa='" + placa + '\'' +
+                ", ano=" + ano +
+                ", valorCompra=" + valorCompra +
+                ", tipo='" + tipo + '\'' +
+                ", estado=" + estado +
+                '}';
+    }   
 }
 

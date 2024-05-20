@@ -409,7 +409,7 @@ public class FrmAquisicao extends javax.swing.JFrame {
   }// </editor-fold>//GEN-END:initComponents
 
     private void tabelaVeiculosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaVeiculosMouseClicked
-        // Pega os dados do cliente
+       
  
     }//GEN-LAST:event_tabelaVeiculosMouseClicked
 

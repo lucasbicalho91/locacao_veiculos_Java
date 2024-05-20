@@ -54,9 +54,7 @@ public class FrmVender extends javax.swing.JFrame {
     cbmarca = new javax.swing.JComboBox<>();
     jLabel4 = new javax.swing.JLabel();
     cbcategoria = new javax.swing.JComboBox<>();
-    btntipo = new javax.swing.JButton();
-    btncategoria = new javax.swing.JButton();
-    btnmarca = new javax.swing.JButton();
+    btnfiltrar = new javax.swing.JButton();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     setTitle("Venda de Veículo");
@@ -217,30 +215,12 @@ public class FrmVender extends javax.swing.JFrame {
       }
     });
 
-    btntipo.setBackground(new java.awt.Color(240, 240, 240));
-    btntipo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-    btntipo.setText("Filtrar");
-    btntipo.addActionListener(new java.awt.event.ActionListener() {
+    btnfiltrar.setBackground(new java.awt.Color(240, 240, 240));
+    btnfiltrar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+    btnfiltrar.setText("Filtrar");
+    btnfiltrar.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        btntipoActionPerformed(evt);
-      }
-    });
-
-    btncategoria.setBackground(new java.awt.Color(240, 240, 240));
-    btncategoria.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-    btncategoria.setText("Filtrar");
-    btncategoria.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        btncategoriaActionPerformed(evt);
-      }
-    });
-
-    btnmarca.setBackground(new java.awt.Color(240, 240, 240));
-    btnmarca.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-    btnmarca.setText("Filtrar");
-    btnmarca.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        btnmarcaActionPerformed(evt);
+        btnfiltrarActionPerformed(evt);
       }
     });
 
@@ -264,22 +244,19 @@ public class FrmVender extends javax.swing.JFrame {
                     .addComponent(jLabel15)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelListaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                  .addComponent(btnbusca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                  .addComponent(btnmarca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addGroup(painelListaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                  .addComponent(jLabel6)
-                  .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelListaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                  .addComponent(cbcategoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                  .addComponent(cbtipo, 0, 140, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelListaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                  .addComponent(btntipo, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
-                  .addComponent(btncategoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addGroup(painelListaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                  .addComponent(btnbusca)
+                  .addGroup(painelListaLayout.createSequentialGroup()
+                    .addComponent(jLabel4)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(cbcategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(18, 18, 18)
+                    .addComponent(jLabel6)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(cbtipo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(btnfiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))))
           .addGroup(painelListaLayout.createSequentialGroup()
             .addGap(296, 296, 296)
             .addComponent(btnvender, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -292,19 +269,17 @@ public class FrmVender extends javax.swing.JFrame {
         .addGroup(painelListaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(jLabel15)
           .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(btnbusca, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(jLabel6)
-          .addComponent(cbtipo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(btntipo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addGap(25, 25, 25)
+          .addComponent(btnbusca, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addGap(16, 16, 16)
         .addGroup(painelListaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(jLabel3)
-          .addComponent(cbmarca, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addComponent(cbcategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addComponent(jLabel4)
-          .addComponent(btncategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(btnmarca, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addGap(18, 18, 18)
+          .addComponent(jLabel6)
+          .addComponent(cbtipo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(btnfiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(jLabel3)
+          .addComponent(cbmarca, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addGap(27, 27, 27)
         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
         .addComponent(btnvender, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -328,7 +303,7 @@ public class FrmVender extends javax.swing.JFrame {
         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addGap(18, 18, 18)
         .addComponent(painelLista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addContainerGap(25, Short.MAX_VALUE))
+        .addContainerGap(11, Short.MAX_VALUE))
     );
 
     pack();
@@ -444,17 +419,18 @@ public class FrmVender extends javax.swing.JFrame {
     // TODO add your handling code here:
   }//GEN-LAST:event_cbcategoriaActionPerformed
 
-  private void btntipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntipoActionPerformed
-    // Filtrar por tipo
-    String coluna = "tipo_veiculo";
-    String tipo = cbtipo.getSelectedItem().toString();
-    
+  private void btnfiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfiltrarActionPerformed
+    //Filtrar
+    Object marca = cbmarca.getSelectedItem();
+    Object categoria = cbcategoria.getSelectedItem();
+    Object tipo = cbtipo.getSelectedItem();
+
     NumberFormat nf = NumberFormat.getNumberInstance(Locale.getDefault());
     DecimalFormat df = (DecimalFormat) nf;
     df.applyPattern("#,##0.00");
-    
+
     VeiculoDAO dao = new VeiculoDAO();
-    List<Veiculo> veiculos = dao.filtrarVeiculos(coluna, tipo);
+    List<Veiculo> veiculos = dao.filtrarVeiculos(marca, categoria, tipo);
     tabelaVeiculos.setVisible(true);
     DefaultTableModel dados = (DefaultTableModel) tabelaVeiculos.getModel();
     dados.setNumRows(0);
@@ -470,72 +446,12 @@ public class FrmVender extends javax.swing.JFrame {
         df.format(valorVenda),
         v.getEstado().getDescricao(),});
     }
-    
+
+    cbmarca.setSelectedItem(null);
+    cbcategoria.setSelectedItem(null);
     cbtipo.setSelectedItem(null);
     
-  }//GEN-LAST:event_btntipoActionPerformed
-
-  private void btncategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncategoriaActionPerformed
-    // Filtrar por Categoria
-    String coluna = "categoria";
-    String categoria = cbcategoria.getSelectedItem().toString();
-    
-    NumberFormat nf = NumberFormat.getNumberInstance(Locale.getDefault());
-    DecimalFormat df = (DecimalFormat) nf;
-    df.applyPattern("#,##0.00");
-    
-    VeiculoDAO dao = new VeiculoDAO();
-    List<Veiculo> veiculos = dao.filtrarVeiculos(coluna, categoria);
-    tabelaVeiculos.setVisible(true);
-    DefaultTableModel dados = (DefaultTableModel) tabelaVeiculos.getModel();
-    dados.setNumRows(0);
-
-    for (Veiculo v : veiculos) {
-      Double valorVenda = v.getValorParaVenda();
-      dados.addRow(new Object[]{
-        v.getId(),
-        v.getMarca(),
-        v.getModelo(),
-        v.getAno(),
-        v.getPlaca(),
-        df.format(valorVenda),
-        v.getEstado().getDescricao(),});
-    }
-    
-    cbcategoria.setSelectedItem(null);
-    
-  }//GEN-LAST:event_btncategoriaActionPerformed
-
-  private void btnmarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmarcaActionPerformed
-    //Filtrar por Marca
-    String coluna = "marca";
-    String marca = cbmarca.getSelectedItem().toString();
-    
-    NumberFormat nf = NumberFormat.getNumberInstance(Locale.getDefault());
-    DecimalFormat df = (DecimalFormat) nf;
-    df.applyPattern("#,##0.00");
-    
-    VeiculoDAO dao = new VeiculoDAO();
-    List<Veiculo> veiculos = dao.filtrarVeiculos(coluna, marca);
-    tabelaVeiculos.setVisible(true);
-    DefaultTableModel dados = (DefaultTableModel) tabelaVeiculos.getModel();
-    dados.setNumRows(0);
-
-    for (Veiculo v : veiculos) {
-      Double valorVenda = v.getValorParaVenda();
-      dados.addRow(new Object[]{
-        v.getId(),
-        v.getMarca(),
-        v.getModelo(),
-        v.getAno(),
-        v.getPlaca(),
-        df.format(valorVenda),
-        v.getEstado().getDescricao(),});
-    }
-    
-    cbmarca.setSelectedItem(null);
-
-  }//GEN-LAST:event_btnmarcaActionPerformed
+  }//GEN-LAST:event_btnfiltrarActionPerformed
 
   /**
    * @param args the command line arguments
@@ -574,9 +490,7 @@ public class FrmVender extends javax.swing.JFrame {
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton btnbusca;
-  private javax.swing.JButton btncategoria;
-  private javax.swing.JButton btnmarca;
-  private javax.swing.JButton btntipo;
+  private javax.swing.JButton btnfiltrar;
   private javax.swing.JButton btnvender;
   private javax.swing.JComboBox<String> cbcategoria;
   private javax.swing.JComboBox<String> cbmarca;

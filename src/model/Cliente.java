@@ -25,7 +25,7 @@ public class Cliente {
     private String bairro;
     private String cidade;
     private String uf;
-    private boolean locado;
+    private int locado;
     
     //Getters & Setters
 
@@ -141,13 +141,33 @@ public class Cliente {
         this.uf = uf;
     }
 
-    public boolean isLocado() {
-        return locado;
-    }
+  public int getLocado() {
+    return locado;
+  }
 
-    public void setLocado(boolean locado) {
-        this.locado = locado;
-    }
+  public void setLocado(int locado) {
+    this.locado = locado;
+  }
+
     
-    
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", sobrenome='" + sobrenome + '\'' +
+                ", rg='" + rg + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", email='" + email + '\'' +
+                ", celular='" + celular + '\'' +
+                ", cep='" + cep + '\'' +
+                ", endereco='" + endereco + '\'' +
+                ", numero=" + numero +
+                ", complemento='" + complemento + '\'' +
+                ", bairro='" + bairro + '\'' +
+                ", cidade='" + cidade + '\'' +
+                ", uf='" + uf + '\'' +
+                ", locado=" + locado +
+                '}';
+    }    
 }

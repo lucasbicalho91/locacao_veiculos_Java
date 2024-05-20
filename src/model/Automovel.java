@@ -42,7 +42,7 @@ public class Automovel extends Veiculo {
             case INTERMEDIARIO -> 300.00;
             case LUXO -> 450.00;
             default -> 0.00;
-        }; // Valor padrão se categoria não estiver definida corretamente
+        }; 
     }
 
     

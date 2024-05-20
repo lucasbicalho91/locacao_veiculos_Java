@@ -104,6 +104,11 @@ public class FrmVeiculos extends javax.swing.JFrame {
     btnlocar1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
     btnlocar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/car_icon.png"))); // NOI18N
     btnlocar1.setText("Locar um veículo para um cliente");
+    btnlocar1.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnlocar1ActionPerformed(evt);
+      }
+    });
 
     javax.swing.GroupLayout painel_inicialLayout = new javax.swing.GroupLayout(painel_inicial);
     painel_inicial.setLayout(painel_inicialLayout);
@@ -184,6 +189,14 @@ public class FrmVeiculos extends javax.swing.JFrame {
     this.dispose();
     
   }//GEN-LAST:event_btnvenderActionPerformed
+
+  private void btnlocar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlocar1ActionPerformed
+    
+    FrmLocacao telaLocar = new FrmLocacao();
+    telaLocar.setVisible(true);
+    this.dispose();
+    
+  }//GEN-LAST:event_btnlocar1ActionPerformed
 
     /**
      * @param args the command line arguments

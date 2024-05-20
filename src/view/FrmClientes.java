@@ -26,7 +26,7 @@ public class FrmClientes extends javax.swing.JFrame {
         dados.setNumRows(0);
         
         for (Cliente c : clientes) {
-            String veiculoLocado = c.isLocado() ? "Sim" : "Não";
+            String veiculoLocado = c.getLocado() > 0 ? "Sim" : "Não";
             dados.addRow(new Object[] {
                 c.getId(),
                 c.getNome(),
@@ -555,23 +555,21 @@ public class FrmClientes extends javax.swing.JFrame {
     }//GEN-LAST:event_txtcidadeActionPerformed
 
     private void btnexcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnexcluirActionPerformed
-        // Excluir cliente
-            Cliente cliente = new Cliente();
+      // Excluir cliente
+      Cliente cliente = new Cliente();
 
-            cliente.setId(Integer.parseInt(txtcodigo.getText()));
-            if ("Não".equals(txtlocado.getText())) {
-                cliente.setLocado(false); 
-            } else if ("Sim".equals(txtlocado.getText())) {
-                cliente.setLocado(true); // Veículo está locado
-            } else {
-                JOptionPane.showMessageDialog(null, "Valor inválido");
-                return;
-            }
-            
-            ClienteDAO dao = new ClienteDAO();
-            dao.excluirCliente(cliente);
-            
-            new Utils().limparCampos(painel_dados); 
+      cliente.setId(Integer.parseInt(txtcodigo.getText()));
+      if ("Não".equals(txtlocado.getText())) {
+        cliente.setLocado(0);
+      } else {
+        JOptionPane.showMessageDialog(null, "Valor inválido");
+        return;
+      }
+
+      ClienteDAO dao = new ClienteDAO();
+      dao.excluirCliente(cliente);
+
+      new Utils().limparCampos(painel_dados);
             
     }//GEN-LAST:event_btnexcluirActionPerformed
 
@@ -680,7 +678,7 @@ public class FrmClientes extends javax.swing.JFrame {
             txtbairro.setText(cliente.getBairro());
             txtcidade.setText(cliente.getCidade());
             cbuf.setSelectedItem(cliente.getUf());
-            if (cliente.isLocado()) {
+            if (cliente.getLocado() > 0) {
                 txtlocado.setText("Sim");
             } else {
                 txtlocado.setText("Não");
@@ -697,14 +695,15 @@ public class FrmClientes extends javax.swing.JFrame {
     private void btnbuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscaActionPerformed
         // Busca por nome
         String nome = "%" + txtpesquisa.getText() + "%";
+        String sobrenome = "%" + "" + "%";
         
         ClienteDAO dao = new ClienteDAO();
-        List<Cliente> clientes = dao.listarClientePorNome(nome);
+        List<Cliente> clientes = dao.listarClientePorNome(nome, sobrenome);
         DefaultTableModel dados = (DefaultTableModel) tabelaClientes.getModel();
         dados.setNumRows(0);
         
         for (Cliente c : clientes) {
-            String veiculoLocado = c.isLocado() ? "Sim" : "Não";
+            String veiculoLocado = c.getLocado() > 0 ? "Sim" : "Não";
             dados.addRow(new Object[] {
                 c.getId(),
                 c.getNome(),
@@ -729,14 +728,15 @@ public class FrmClientes extends javax.swing.JFrame {
     private void txtpesquisaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtpesquisaKeyPressed
         // Busca por nome
         String nome = "%" + txtpesquisa.getText() + "%";
+        String sobrenome = "%" + "" + "%";
         
         ClienteDAO dao = new ClienteDAO();
-        List<Cliente> clientes = dao.listarClientePorNome(nome);
+        List<Cliente> clientes = dao.listarClientePorNome(nome, sobrenome);
         DefaultTableModel dados = (DefaultTableModel) tabelaClientes.getModel();
         dados.setNumRows(0);
         
         for (Cliente c : clientes) {
-            String veiculoLocado = c.isLocado() ? "Sim" : "Não";
+            String veiculoLocado = c.getLocado() > 0 ? "Sim" : "Não";
             dados.addRow(new Object[] {
                 c.getId(),
                 c.getNome(),

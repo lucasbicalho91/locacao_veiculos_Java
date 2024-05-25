@@ -4,9 +4,9 @@
  */
 package view;
 
-import controller.ClienteDAO;
-import controller.LocacaoDAO;
-import controller.VeiculoDAO;
+import dao.ClienteDAO;
+import dao.LocacaoDAO;
+import dao.VeiculoDAO;
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

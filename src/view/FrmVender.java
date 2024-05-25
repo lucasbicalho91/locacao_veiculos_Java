@@ -4,7 +4,7 @@
  */
 package view;
 
-import controller.VeiculoDAO;
+import dao.VeiculoDAO;
 import enums.Categoria;
 import enums.Marca;
 import java.text.DecimalFormat;

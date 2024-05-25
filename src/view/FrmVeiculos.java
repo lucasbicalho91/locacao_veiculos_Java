@@ -4,7 +4,7 @@
  */
 package view;
 
-import controller.VeiculoDAO;
+import dao.VeiculoDAO;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.List;

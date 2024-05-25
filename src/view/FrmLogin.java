@@ -4,7 +4,7 @@
  */
 package view;
 
-import controller.FuncionarioDAO;
+import dao.FuncionarioDAO;
 import javax.swing.JOptionPane;
 
 /**

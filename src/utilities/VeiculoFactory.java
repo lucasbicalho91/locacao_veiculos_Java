@@ -4,6 +4,7 @@
  */
 package utilities;
 
+import dao.ClienteDAO;
 import enums.Categoria;
 import enums.Estado;
 import enums.Marca;
@@ -65,14 +66,12 @@ public static void popularVeiculo(ResultSet rs, Veiculo veiculo) throws SQLExcep
     public static Locacao popularLocacao(ResultSet rs) throws SQLException {
         int idLocacao = rs.getInt("id_locacao");
         int idCliente = rs.getInt("id_cliente");
-        String nomeCliente = rs.getString("nome_cliente");
         int dias = rs.getInt("dias");
         double valor = rs.getDouble("valor");
         Date dataLocacao = rs.getDate("data_locacao");
-
-        Cliente cliente = new Cliente();
-        cliente.setId(idCliente);
-        cliente.setNome(nomeCliente);
+        
+        ClienteDAO clienteDAO = new ClienteDAO();
+        Cliente cliente = clienteDAO.buscarClientePorCodigo(idCliente);
 
         Calendar data = Calendar.getInstance();
         data.setTime(dataLocacao);

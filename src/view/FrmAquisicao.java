@@ -10,11 +10,7 @@ import enums.Marca;
 import enums.ModeloAutomovel;
 import enums.ModeloMotocicleta;
 import enums.ModeloVan;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.util.List;
-import java.util.Locale;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.JOptionPane;
 import model.Automovel;
 import model.Motocicleta;
 import model.Van;
@@ -50,7 +46,6 @@ public class FrmAquisicao extends javax.swing.JFrame {
     painelDados = new javax.swing.JPanel();
     jLabel3 = new javax.swing.JLabel();
     jLabel13 = new javax.swing.JLabel();
-    txtvalor = new javax.swing.JFormattedTextField();
     jLabel4 = new javax.swing.JLabel();
     cbcategoria = new javax.swing.JComboBox<>();
     jLabel5 = new javax.swing.JLabel();
@@ -58,11 +53,12 @@ public class FrmAquisicao extends javax.swing.JFrame {
     jLabel14 = new javax.swing.JLabel();
     txtplaca = new javax.swing.JFormattedTextField();
     jLabel8 = new javax.swing.JLabel();
-    txtano = new javax.swing.JTextField();
     cbmarca = new javax.swing.JComboBox<>();
     btncadastrar = new javax.swing.JButton();
     jLabel6 = new javax.swing.JLabel();
     cbtipo = new javax.swing.JComboBox<>();
+    txtvalor = new javax.swing.JTextField();
+    txtano = new javax.swing.JFormattedTextField();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     setTitle("Cadastro de Veículo");
@@ -102,14 +98,6 @@ public class FrmAquisicao extends javax.swing.JFrame {
 
     jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
     jLabel13.setText("Valor de Compra:");
-
-    txtvalor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-    txtvalor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-    txtvalor.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        txtvalorActionPerformed(evt);
-      }
-    });
 
     jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
     jLabel4.setText("Categoria:");
@@ -167,8 +155,6 @@ public class FrmAquisicao extends javax.swing.JFrame {
     jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
     jLabel8.setText("Ano:");
 
-    txtano.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-
     cbmarca.addAncestorListener(new javax.swing.event.AncestorListener() {
       public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
         cbmarcaAncestorAdded(evt);
@@ -225,6 +211,15 @@ public class FrmAquisicao extends javax.swing.JFrame {
       }
     });
 
+    txtvalor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+    try {
+      txtano.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####")));
+    } catch (java.text.ParseException ex) {
+      ex.printStackTrace();
+    }
+    txtano.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
     javax.swing.GroupLayout painelDadosLayout = new javax.swing.GroupLayout(painelDados);
     painelDados.setLayout(painelDadosLayout);
     painelDadosLayout.setHorizontalGroup(
@@ -234,34 +229,30 @@ public class FrmAquisicao extends javax.swing.JFrame {
           .addGroup(painelDadosLayout.createSequentialGroup()
             .addGap(42, 42, 42)
             .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                .addGroup(painelDadosLayout.createSequentialGroup()
-                  .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel8))
-                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                  .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbcategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtano, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(painelDadosLayout.createSequentialGroup()
-                  .addComponent(jLabel5)
-                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                  .addComponent(cbmodelo, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(painelDadosLayout.createSequentialGroup()
-                  .addComponent(jLabel3)
-                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                  .addComponent(cbmarca, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(painelDadosLayout.createSequentialGroup()
-                  .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(painelDadosLayout.createSequentialGroup()
-                      .addComponent(jLabel14)
-                      .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                      .addComponent(txtplaca, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(painelDadosLayout.createSequentialGroup()
-                      .addComponent(jLabel13)
-                      .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                      .addComponent(txtvalor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                  .addGap(142, 142, 142)))
+              .addGroup(painelDadosLayout.createSequentialGroup()
+                .addGap(47, 47, 47)
+                .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                  .addGroup(painelDadosLayout.createSequentialGroup()
+                    .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                      .addComponent(jLabel4)
+                      .addComponent(jLabel8))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                      .addComponent(cbcategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                      .addComponent(txtano, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                  .addGroup(painelDadosLayout.createSequentialGroup()
+                    .addComponent(jLabel5)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(cbmodelo, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
+                  .addGroup(painelDadosLayout.createSequentialGroup()
+                    .addComponent(jLabel3)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(cbmarca, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                  .addGroup(painelDadosLayout.createSequentialGroup()
+                    .addComponent(jLabel14)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(txtplaca, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(142, 142, 142))))
               .addGroup(painelDadosLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jLabel6)
@@ -271,6 +262,12 @@ public class FrmAquisicao extends javax.swing.JFrame {
             .addGap(190, 190, 190)
             .addComponent(btncadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
         .addContainerGap(385, Short.MAX_VALUE))
+      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelDadosLayout.createSequentialGroup()
+        .addGap(0, 0, Short.MAX_VALUE)
+        .addComponent(jLabel13)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        .addComponent(txtvalor, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addGap(622, 622, 622))
     );
     painelDadosLayout.setVerticalGroup(
       painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -295,17 +292,17 @@ public class FrmAquisicao extends javax.swing.JFrame {
         .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(jLabel8)
           .addComponent(txtano, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addGap(18, 18, 18)
+        .addGap(23, 23, 23)
         .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(txtplaca, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(jLabel14))
+          .addComponent(jLabel14)
+          .addComponent(txtplaca, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         .addGap(18, 18, 18)
         .addGroup(painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(txtvalor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addComponent(jLabel13))
-        .addGap(30, 30, 30)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
         .addComponent(btncadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addContainerGap(45, Short.MAX_VALUE))
+        .addGap(40, 40, 40))
     );
 
     painelVeiculo.addTab("Dados do Veículo", painelDados);
@@ -377,41 +374,53 @@ public class FrmAquisicao extends javax.swing.JFrame {
 
   private void btncadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncadastrarActionPerformed
     // cadastrar um novo veículo
-    Veiculo veiculo = null;
-    String tipo = cbtipo.getSelectedItem().toString();
-    String numero = txtvalor.getText().replace(",", ".");
+    if (cbtipo != null && cbmarca != null && cbmodelo != null && cbcategoria != null
+            & new Utils().verificarCampos(painelDados)) {
 
-    if (cbtipo.getSelectedItem() == "Automóvel") {
-      veiculo = new Automovel();
-    }
-    else if (cbtipo.getSelectedItem() == "Motocicleta") {
-      veiculo = new Motocicleta();
-    }
-    else if (cbtipo.getSelectedItem() == "Van") {
-      veiculo = new Van();
-    }
+      String ano = txtano.getText();
+      if (ano.length() == 4) {
+        Veiculo veiculo = null;
+        String tipo = cbtipo.getSelectedItem().toString();
+        String numero = txtvalor.getText().replace(",", ".");
 
-    if (veiculo != null) {
-      veiculo.setMarca(Marca.valueOf(cbmarca.getSelectedItem().toString()));
-      veiculo.setCategoria(Categoria.fromDescricao(cbcategoria.getSelectedItem().toString()));
-      veiculo.setAno(Integer.parseInt(txtano.getText()));
-      veiculo.setPlaca(txtplaca.getText());
-      veiculo.setValorCompra(Double.parseDouble(numero));
+        if (cbtipo.getSelectedItem() == "Automóvel") {
+          veiculo = new Automovel();
+        } else if (cbtipo.getSelectedItem() == "Motocicleta") {
+          veiculo = new Motocicleta();
+        } else if (cbtipo.getSelectedItem() == "Van") {
+          veiculo = new Van();
+        }
 
-      if (veiculo instanceof Automovel automovel) {
-        automovel.setModelo(ModeloAutomovel.valueOf(cbmodelo.getSelectedItem().toString()));
-      } else if (veiculo instanceof Motocicleta motocicleta) {
-        motocicleta.setModelo(ModeloMotocicleta.valueOf(cbmodelo.getSelectedItem().toString()));
-      } else if (veiculo instanceof Van van) {
-        van.setModelo(ModeloVan.valueOf(cbmodelo.getSelectedItem().toString()));
+        if (veiculo != null) {
+          veiculo.setMarca(Marca.valueOf(cbmarca.getSelectedItem().toString()));
+          veiculo.setCategoria(Categoria.fromDescricao(cbcategoria.getSelectedItem().toString()));
+          veiculo.setAno(Integer.parseInt(txtano.getText()));
+          veiculo.setPlaca(txtplaca.getText());
+          veiculo.setValorCompra(Double.parseDouble(numero));
+
+          if (veiculo instanceof Automovel automovel) {
+            automovel.setModelo(ModeloAutomovel.valueOf(cbmodelo.getSelectedItem().toString()));
+          } else if (veiculo instanceof Motocicleta motocicleta) {
+            motocicleta.setModelo(ModeloMotocicleta.valueOf(cbmodelo.getSelectedItem().toString()));
+          } else if (veiculo instanceof Van van) {
+            van.setModelo(ModeloVan.valueOf(cbmodelo.getSelectedItem().toString()));
+          }
+
+        }
+
+        VeiculoDAO dao = new VeiculoDAO();
+        dao.cadastrarVeiculo(veiculo, tipo);
+
+        new Utils().limparCampos(painelDados);
+      } else {
+        JOptionPane.showMessageDialog(null, "O ano deve ter 4 dígitos");
       }
+    } else {
+        JOptionPane.showMessageDialog(null, "Preencha todos os dados");
+      }
+    
 
-    }
 
-    VeiculoDAO dao = new VeiculoDAO();
-    dao.cadastrarVeiculo (veiculo, tipo);
-
-    new Utils().limparCampos(painelDados);
 
   }//GEN-LAST:event_btncadastrarActionPerformed
 
@@ -455,10 +464,6 @@ public class FrmAquisicao extends javax.swing.JFrame {
     }
     cbcategoria.setSelectedItem(null);
   }//GEN-LAST:event_cbcategoriaAncestorAdded
-
-  private void txtvalorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtvalorActionPerformed
-    // TODO add your handling code here:
-  }//GEN-LAST:event_txtvalorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -512,8 +517,8 @@ public class FrmAquisicao extends javax.swing.JFrame {
   private javax.swing.JPanel jPanel1;
   private javax.swing.JPanel painelDados;
   private javax.swing.JTabbedPane painelVeiculo;
-  private javax.swing.JTextField txtano;
+  private javax.swing.JFormattedTextField txtano;
   private javax.swing.JFormattedTextField txtplaca;
-  private javax.swing.JFormattedTextField txtvalor;
+  private javax.swing.JTextField txtvalor;
   // End of variables declaration//GEN-END:variables
 }

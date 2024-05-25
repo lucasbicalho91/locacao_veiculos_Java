@@ -5,14 +5,15 @@
 package utilities;
 
 import java.awt.Component;
-import java.awt.Container;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Arrays;
+import java.util.List;
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.JViewport;
+
 
 /**
  *
@@ -24,11 +25,34 @@ public class Utils {
   public void limparCampos(JPanel container) {
     Component components[] = container.getComponents();
     for (Component component : components) {
-      if (component instanceof JTextField) {
-        ((JTextField) component).setText(null);
+      if (component instanceof JTextField jTextField) {
+        jTextField.setText(null);
+      } else if (component instanceof JComboBox) {
+                ((JComboBox<?>) component).setSelectedIndex(-1);
       }
     }
   }
+  
+  //Verificar se todos os campos estão preenchidos
+  public boolean verificarCampos(JPanel container) {
+      List<String> camposIgnorados = Arrays.asList(
+              "txtcodigo", "txtlocado", "txtano", "txtplaca", "txtvalor", "txtcomplemento" );
+      Component[] components = container.getComponents();
+      for (Component component : components) {
+          if (component instanceof JTextField jTextField) {
+            String name = component.getName();
+            if (camposIgnorados.contains(name)) {
+                continue;
+            }
+              String text = jTextField.getText();
+              if (text == null || text.trim().isEmpty()) {
+                  return false;
+              }
+          }
+      }
+      return true;
+  }
+
 
   //Validar data
   public static boolean validarData(String dataString) {

@@ -69,7 +69,7 @@ public class FrmFuncionarios extends javax.swing.JFrame {
     btnpesquisar = new javax.swing.JButton();
     jLabel16 = new javax.swing.JLabel();
     txtsobrenome = new javax.swing.JTextField();
-    btnnovo = new javax.swing.JButton();
+    btnlimpar = new javax.swing.JButton();
     btncadastrar = new javax.swing.JButton();
     btnatualizar = new javax.swing.JButton();
     btnexcluir = new javax.swing.JButton();
@@ -156,13 +156,13 @@ public class FrmFuncionarios extends javax.swing.JFrame {
 
     txtsobrenome.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-    btnnovo.setBackground(new java.awt.Color(240, 240, 240));
-    btnnovo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-    btnnovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/novo.png"))); // NOI18N
-    btnnovo.setText("NOVO");
-    btnnovo.addActionListener(new java.awt.event.ActionListener() {
+    btnlimpar.setBackground(new java.awt.Color(240, 240, 240));
+    btnlimpar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+    btnlimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/novo.png"))); // NOI18N
+    btnlimpar.setText("LIMPAR CAMPOS");
+    btnlimpar.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        btnnovoActionPerformed(evt);
+        btnlimparActionPerformed(evt);
       }
     });
 
@@ -234,18 +234,10 @@ public class FrmFuncionarios extends javax.swing.JFrame {
             .addGap(18, 18, 18)
             .addComponent(jLabel5)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(txtcelular, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(txtcelular, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(100, 100, 100))
           .addGroup(painel_dadosLayout.createSequentialGroup()
             .addGroup(painel_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-              .addGroup(painel_dadosLayout.createSequentialGroup()
-                .addGap(0, 4, Short.MAX_VALUE)
-                .addComponent(btnnovo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btncadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnatualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnexcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
               .addGroup(painel_dadosLayout.createSequentialGroup()
                 .addComponent(txtemail)
                 .addGap(18, 18, 18)
@@ -256,9 +248,17 @@ public class FrmFuncionarios extends javax.swing.JFrame {
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtcargo, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(116, 116, 116)))
-            .addGap(96, 96, 96)))
-        .addGap(107, 107, 107))
+                .addGap(116, 116, 116))
+              .addGroup(painel_dadosLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnlimpar)
+                .addGap(18, 18, 18)
+                .addComponent(btncadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnatualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnexcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGap(203, 203, 203))))
     );
     painel_dadosLayout.setVerticalGroup(
       painel_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -286,11 +286,11 @@ public class FrmFuncionarios extends javax.swing.JFrame {
           .addComponent(jLabel17))
         .addGap(65, 65, 65)
         .addGroup(painel_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(btnnovo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(btncadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(btnatualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(btnexcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addContainerGap(177, Short.MAX_VALUE))
+          .addComponent(btnlimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(btncadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(btnatualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(btnexcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addContainerGap(167, Short.MAX_VALUE))
     );
 
     jTabbedPane1.addTab("Dados do Funcionário", painel_dados);
@@ -350,9 +350,9 @@ public class FrmFuncionarios extends javax.swing.JFrame {
         .addComponent(btnbusca)
         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
       .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_listaLayout.createSequentialGroup()
-        .addContainerGap(40, Short.MAX_VALUE)
+        .addContainerGap(52, Short.MAX_VALUE)
         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 889, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addContainerGap(47, Short.MAX_VALUE))
+        .addContainerGap(57, Short.MAX_VALUE))
     );
     painel_listaLayout.setVerticalGroup(
       painel_listaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -393,7 +393,12 @@ public class FrmFuncionarios extends javax.swing.JFrame {
   }// </editor-fold>//GEN-END:initComponents
 
     private void btnexcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnexcluirActionPerformed
-        // Excluir cliente
+        // Excluir funcionáro
+      int op;
+
+      op = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esse cliente?");
+
+      if (op == 0) {
         Funcionario funcionario = new Funcionario();
 
         funcionario.setId(Integer.parseInt(txtcodigo.getText()));
@@ -402,12 +407,14 @@ public class FrmFuncionarios extends javax.swing.JFrame {
         dao.excluirFuncionario(funcionario);
 
         new Utils().limparCampos(painel_dados);
-
+      } 
     }//GEN-LAST:event_btnexcluirActionPerformed
 
     private void btncadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncadastrarActionPerformed
-        // cadastrar
-        
+      // cadastrar
+      txtcodigo.setName("txtcodigo");
+      
+      if (new Utils().verificarCampos(painel_dados)) {
             Funcionario funcionario = new Funcionario();
             
             funcionario.setNome(txtnome.getText());
@@ -421,7 +428,9 @@ public class FrmFuncionarios extends javax.swing.JFrame {
             dao.cadastrarFuncionario(funcionario);
             
             new Utils().limparCampos(painel_dados); 
-        
+      } else {
+        JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+      }
     }//GEN-LAST:event_btncadastrarActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -439,12 +448,15 @@ public class FrmFuncionarios extends javax.swing.JFrame {
         txtsobrenome.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 2).toString());
         txtemail.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 3).toString());
         txtcargo.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 4).toString());
-        txtcelular.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 6).toString());
+        txtcelular.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 5).toString());
         
     }//GEN-LAST:event_tabelaFuncionariosMouseClicked
 
     private void btnatualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnatualizarActionPerformed
-        // Editar cliente
+        // Editar funcionário
+      txtcodigo.setName("txtcodigo");
+
+      if (new Utils().verificarCampos(painel_dados)) {
         Funcionario funcionario = new Funcionario();
 
         funcionario.setNome(txtnome.getText());
@@ -459,13 +471,16 @@ public class FrmFuncionarios extends javax.swing.JFrame {
         dao.alterarFuncionario(funcionario);
 
         new Utils().limparCampos(painel_dados);
-            
+      }
+      else {
+        JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+      }
     }//GEN-LAST:event_btnatualizarActionPerformed
 
     private void btnpesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpesquisarActionPerformed
         // Pesquisa por Id
         int id = Integer.parseInt(txtcodigo.getText());
-        Funcionario funcionario = new Funcionario();
+        Funcionario funcionario;
         FuncionarioDAO dao = new FuncionarioDAO();
         
         funcionario = dao.buscarFuncionarioPorCodigo(id);
@@ -481,7 +496,7 @@ public class FrmFuncionarios extends javax.swing.JFrame {
         }
         
         else {
-            JOptionPane.showMessageDialog(null, "Cliente não encontrado!");
+            JOptionPane.showMessageDialog(null, "Funcionário não encontrado!");
         }
         
     }//GEN-LAST:event_btnpesquisarActionPerformed
@@ -502,7 +517,6 @@ public class FrmFuncionarios extends javax.swing.JFrame {
                 f.getSobrenome(),
                 f.getEmail(),
                 f.getCargo(),
-                f.getAcesso(),
                 f.getCelular(),
             });
         }
@@ -525,7 +539,6 @@ public class FrmFuncionarios extends javax.swing.JFrame {
                 f.getSobrenome(),
                 f.getEmail(),
                 f.getCargo(),
-                f.getAcesso(),
                 f.getCelular(),
             });
         }
@@ -536,10 +549,10 @@ public class FrmFuncionarios extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtpesquisaActionPerformed
 
-    private void btnnovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnovoActionPerformed
+    private void btnlimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlimparActionPerformed
         // limpar os campos
         new Utils().limparCampos(painel_dados); 
-    }//GEN-LAST:event_btnnovoActionPerformed
+    }//GEN-LAST:event_btnlimparActionPerformed
 
     /**
      * @param args the command line arguments
@@ -645,7 +658,7 @@ public class FrmFuncionarios extends javax.swing.JFrame {
   private javax.swing.JButton btnbusca;
   private javax.swing.JButton btncadastrar;
   private javax.swing.JButton btnexcluir;
-  private javax.swing.JButton btnnovo;
+  private javax.swing.JButton btnlimpar;
   private javax.swing.JButton btnpesquisar;
   private javax.swing.JLabel jLabel1;
   private javax.swing.JLabel jLabel15;

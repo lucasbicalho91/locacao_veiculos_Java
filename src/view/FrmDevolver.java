@@ -192,6 +192,7 @@ public class FrmDevolver extends javax.swing.JFrame {
       
       locacaoDAO.excluirLocacao(idLocacao);
       locacaoDAO.atualizarVeiculoDevolvido(veiculo, cliente);
+
       
       DefaultTableModel modelo = (DefaultTableModel) tabelaLocacao.getModel();
       modelo.setRowCount(0);

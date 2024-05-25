@@ -50,7 +50,7 @@ public class ClienteDAO {
                 stmt.setString(11, cliente.getBairro());
                 stmt.setString(12, cliente.getCidade());
                 stmt.setString(13, cliente.getUf());
-                stmt.setBoolean(14, false);
+                stmt.setInt(14, 0);
                 
                 stmt.execute();
                 stmt.close();

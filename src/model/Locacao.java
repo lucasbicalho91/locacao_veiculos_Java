@@ -74,8 +74,9 @@ public class Locacao {
         return "Locacao{" +
                 "dias=" + diasLocacao +
                 ", data=" + dataLocacao.getTime() + 
-                ", cliente=" + cliente.getId() +
-                ", cliente=" + cliente.getNome() +
+                ", Id do cliente=" + cliente.getId() +
+                ", Nome do cliente=" + cliente.getNome() +
+                ", quantidade de veículos locados do cliente=" + cliente.getLocado() +
                 ", valor=" + valorLocacao +
                 '}';
     }

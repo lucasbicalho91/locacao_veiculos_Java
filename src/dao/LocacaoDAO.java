@@ -76,6 +76,7 @@ public class LocacaoDAO {
     try {
       if (veiculo != null) {
         if (veiculo.getEstado() == Estado.LOCADO) {
+          veiculo.atualizarCliente(cliente);
           veiculo.devolver();
         } else {
           JOptionPane.showMessageDialog(null,

@@ -60,12 +60,13 @@ public abstract class Veiculo implements VeiculoI {
 
     @Override
     public void devolver() {
-      if (locacao != null) {
-        Cliente cliente = locacao.getCliente();
-        cliente.setLocado(cliente.getLocado() - 1);
         locacao = null;
         estado = Estado.DISPONIVEL;
-      }
+    }
+    
+    public Cliente atualizarCliente(Cliente cliente) {
+        cliente.setLocado(cliente.getLocado() - 1);
+        return cliente;
     }
 
     @Override

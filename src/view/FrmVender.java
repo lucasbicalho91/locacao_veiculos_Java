@@ -26,6 +26,7 @@ public class FrmVender extends javax.swing.JFrame {
    */
   public FrmVender() {
     initComponents();
+    txtcodigo.setText("1");
     tabelaVeiculos.setVisible(false);
 
   }

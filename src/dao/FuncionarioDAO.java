@@ -32,7 +32,7 @@ public class FuncionarioDAO {
         
         try {
             String sql = "insert into tb_funcionarios "
-                    + "(nome, sobrenome, email, senha, cargo, acesso, celular) "
+                    + "(nome, sobrenome, email, senha, cargo, celular) "
                     + "values (?, ?, ?, ?, ?, ?)";
             
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -41,7 +41,7 @@ public class FuncionarioDAO {
                 stmt.setString(3, funcionario.getEmail());
                 stmt.setString(4, funcionario.getSenha());
                 stmt.setString(5, funcionario.getCargo());
-                stmt.setString(7, funcionario.getCelular());
+                stmt.setString(6, funcionario.getCelular());
 
                 stmt.execute();
                 stmt.close();
@@ -68,8 +68,8 @@ public class FuncionarioDAO {
                 stmt.setString(3, funcionario.getEmail());
                 stmt.setString(4, funcionario.getSenha());
                 stmt.setString(5, funcionario.getCargo());
-                stmt.setString(7, funcionario.getCelular());
-                stmt.setInt(8, funcionario.getId());
+                stmt.setString(6, funcionario.getCelular());
+                stmt.setInt(7, funcionario.getId());
                 
                 stmt.execute();
             }

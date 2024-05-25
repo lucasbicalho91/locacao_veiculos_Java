@@ -26,7 +26,7 @@ public class FrmVender extends javax.swing.JFrame {
    */
   public FrmVender() {
     initComponents();
-    txtcodigo.setText("1");
+    txtcodigo.setText("0");
     tabelaVeiculos.setVisible(false);
 
   }
@@ -341,9 +341,14 @@ public class FrmVender extends javax.swing.JFrame {
         veiculo.getPlaca(),
         df.format(valorVenda),
         veiculo.getEstado().getDescricao(),});
-    }
-    tabelaVeiculos.setVisible(true);
-    txtcodigo.setText("");
+        
+        tabelaVeiculos.setVisible(true);
+    } else {
+              JOptionPane.showMessageDialog(null, "Veículo não encontrado.");
+              tabelaVeiculos.setVisible(false);
+              txtcodigo.setText("0");
+          }
+
      
   }//GEN-LAST:event_btnbuscaActionPerformed
 
@@ -451,6 +456,7 @@ public class FrmVender extends javax.swing.JFrame {
     cbmarca.setSelectedItem(null);
     cbcategoria.setSelectedItem(null);
     cbtipo.setSelectedItem(null);
+    txtcodigo.setText("0");
     
   }//GEN-LAST:event_btnfiltrarActionPerformed
 

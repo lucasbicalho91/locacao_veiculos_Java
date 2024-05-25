@@ -168,9 +168,7 @@ public class VeiculoDAO {
                   JOptionPane.showMessageDialog(null, 
                           "Esse veículo não está disponível para venda");
               }
-          } else {
-              JOptionPane.showMessageDialog(null, "Veículo não encontrado.");
-          }
+          } 
       } catch (SQLException erro) {
           JOptionPane.showMessageDialog(null, "Erro: " + erro);
       }

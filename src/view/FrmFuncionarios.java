@@ -43,6 +43,7 @@ public class FrmFuncionarios extends javax.swing.JFrame {
      */
     public FrmFuncionarios() {
         initComponents();
+        txtcodigo.setText("0");
     }
 
     /**
@@ -471,6 +472,7 @@ public class FrmFuncionarios extends javax.swing.JFrame {
         dao.alterarFuncionario(funcionario);
 
         new Utils().limparCampos(painel_dados);
+        txtcodigo.setText("0");
       }
       else {
         JOptionPane.showMessageDialog(null, "Preencha todos os campos");
@@ -497,6 +499,8 @@ public class FrmFuncionarios extends javax.swing.JFrame {
         
         else {
             JOptionPane.showMessageDialog(null, "Funcionário não encontrado!");
+            new Utils().limparCampos(painel_dados);
+            txtcodigo.setText("0");
         }
         
     }//GEN-LAST:event_btnpesquisarActionPerformed

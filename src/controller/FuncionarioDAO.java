@@ -33,7 +33,7 @@ public class FuncionarioDAO {
         try {
             String sql = "insert into tb_funcionarios "
                     + "(nome, sobrenome, email, senha, cargo, acesso, celular) "
-                    + "values (?, ?, ?, ?, ?, ?, ?)";
+                    + "values (?, ?, ?, ?, ?, ?)";
             
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setString(1, funcionario.getNome());
@@ -41,7 +41,6 @@ public class FuncionarioDAO {
                 stmt.setString(3, funcionario.getEmail());
                 stmt.setString(4, funcionario.getSenha());
                 stmt.setString(5, funcionario.getCargo());
-                stmt.setString(6, funcionario.getAcesso());
                 stmt.setString(7, funcionario.getCelular());
 
                 stmt.execute();
@@ -61,7 +60,7 @@ public class FuncionarioDAO {
         
         try {
             String sql = "update tb_funcionarios set nome = ?, sobrenome = ?, "
-                    + "email = ?, senha = ?, cargo = ?, acesso = ?, celular = ? where id = ?";
+                    + "email = ?, senha = ?, cargo = ?, celular = ? where id = ?";
             
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setString(1, funcionario.getNome());
@@ -69,7 +68,6 @@ public class FuncionarioDAO {
                 stmt.setString(3, funcionario.getEmail());
                 stmt.setString(4, funcionario.getSenha());
                 stmt.setString(5, funcionario.getCargo());
-                stmt.setString(6, funcionario.getAcesso());
                 stmt.setString(7, funcionario.getCelular());
                 stmt.setInt(8, funcionario.getId());
                 
@@ -124,7 +122,6 @@ public class FuncionarioDAO {
                 funcionario.setEmail(rs.getString("email"));
                 funcionario.setSenha(rs.getString("senha"));
                 funcionario.setCargo(rs.getString("cargo"));
-                funcionario.setAcesso(rs.getString("acesso"));
                 funcionario.setCelular(rs.getString("celular"));
 
                 funcionarios.add(funcionario);
@@ -156,7 +153,6 @@ public class FuncionarioDAO {
                 funcionario.setId(rs.getInt("id"));
                 funcionario.setNome(rs.getString("nome"));
                 funcionario.setSobrenome(rs.getString("sobrenome"));
-                funcionario.setEmail(rs.getString("email"));
                 funcionario.setEmail(rs.getString("email"));
                 funcionario.setSenha(rs.getString("senha"));
                 funcionario.setCargo(rs.getString("cargo"));
@@ -208,7 +204,7 @@ public class FuncionarioDAO {
     }
     
     //Logar
-    public void logar(String email, String senha) {
+    public boolean logar(String email, String senha) {
         
         try {
             String sql = "select * from tb_funcionarios where email = ? and senha = ?";
@@ -222,12 +218,15 @@ public class FuncionarioDAO {
                 FrmMenu tela = new FrmMenu();
                 tela.usuarioLogado = rs.getString("nome") + " " + rs.getString("sobrenome");
                 tela.setVisible(true);
+                return true;
             } else {
                 JOptionPane.showMessageDialog(null, "Dados incorretos!");
+                return false;
             }
             
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "Erro: " + erro);
+            return false;
         }
         
     }

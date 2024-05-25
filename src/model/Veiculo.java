@@ -62,6 +62,7 @@ public abstract class Veiculo implements VeiculoI {
     public void devolver() {
       if (locacao != null) {
         Cliente cliente = locacao.getCliente();
+        cliente.setLocado(cliente.getLocado() - 1);
         locacao = null;
         estado = Estado.DISPONIVEL;
       }

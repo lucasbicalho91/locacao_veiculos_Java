@@ -61,7 +61,7 @@ public class VeiculoDAO {
   public void venderVeiculo(int id) {
     
     try {
-      Veiculo veiculo = buscarVeiculoPorCodigo(id);
+      Veiculo veiculo = buscarVeiculoDisponivelPorCodigo(id);
         
         if (veiculo != null) {
             veiculo.vender();
@@ -151,7 +151,7 @@ public class VeiculoDAO {
         return veiculos;
     }
   
-  public Veiculo buscarVeiculoPorCodigo(int id) {
+  public Veiculo buscarVeiculoDisponivelPorCodigo(int id) {
       String sql = "SELECT * FROM tb_veiculos WHERE id = ?";
       try (PreparedStatement stmt = conn.prepareStatement(sql)) {
           stmt.setInt(1, id);
@@ -182,7 +182,7 @@ public class VeiculoDAO {
         String sql = "SELECT v.*, l.id AS id_locacao, l.id_cliente, l.dias, l.valor, l.data_locacao, c.nome " + 
                      "AS nome_cliente FROM tb_veiculos v " +
                      "INNER JOIN tb_locacao l ON v.id = l.id_veiculo " +
-                     "INNER JOIN tb_clientes c ON l.id_cliente = c.id";
+                     "INNER JOIN tb_clientes c ON l.id_cliente = c.id where estado = 'Locado'";
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             try (ResultSet rs = stmt.executeQuery()) {

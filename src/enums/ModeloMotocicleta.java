@@ -18,5 +18,7 @@ public enum ModeloMotocicleta {
     Fazer_250,
     V_Strom_650,
     Ninja_400,
+    GSX_R1000,
+    Ninja_H2
     
 }

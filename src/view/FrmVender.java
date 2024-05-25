@@ -326,7 +326,7 @@ public class FrmVender extends javax.swing.JFrame {
     df.applyPattern("#,##0.00");
 
     VeiculoDAO dao = new VeiculoDAO();
-    Veiculo veiculo = dao.buscarVeiculoPorCodigo(id);
+    Veiculo veiculo = dao.buscarVeiculoDisponivelPorCodigo(id);
     
     if (veiculo != null) {
       DefaultTableModel dados = (DefaultTableModel) tabelaVeiculos.getModel();

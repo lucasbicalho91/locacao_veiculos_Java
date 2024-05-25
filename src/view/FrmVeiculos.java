@@ -4,11 +4,46 @@
  */
 package view;
 
+import controller.VeiculoDAO;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.List;
+import java.util.Locale;
+import javax.swing.table.DefaultTableModel;
+import model.Veiculo;
+
 /**
  *
  * @author Lucas
  */
 public class FrmVeiculos extends javax.swing.JFrame {
+  
+    
+      public void listar() {
+        NumberFormat nf = NumberFormat.getNumberInstance(Locale.getDefault());
+        DecimalFormat df = (DecimalFormat) nf;
+        df.applyPattern("#,##0.00");
+
+        VeiculoDAO dao = new VeiculoDAO();
+        List<Veiculo> veiculos = dao.listarVeiculos();
+        DefaultTableModel dados = (DefaultTableModel) tabelaVeiculos.getModel();
+        dados.setNumRows(0);
+        
+        for (Veiculo v : veiculos) {
+            dados.addRow(new Object[] {
+                v.getId(),
+                v.getMarca(),
+                v.getModelo(),
+                v.getAno(),
+                v.getCategoria().getDescricao(),
+                v.getPlaca(),
+                df.format(v.getValorCompra()),
+                v.getTipo(),
+                v.getEstado().getDescricao(),
+                
+            });
+        }  
+    }
    
 
     /**
@@ -36,6 +71,10 @@ public class FrmVeiculos extends javax.swing.JFrame {
     btnlocar = new javax.swing.JButton();
     btnvender = new javax.swing.JButton();
     btnlocar1 = new javax.swing.JButton();
+    btnlistar = new javax.swing.JButton();
+    jPanel2 = new javax.swing.JPanel();
+    jScrollPane1 = new javax.swing.JScrollPane();
+    tabelaVeiculos = new javax.swing.JTable();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     setTitle("Página de Veículos");
@@ -110,28 +149,36 @@ public class FrmVeiculos extends javax.swing.JFrame {
       }
     });
 
+    btnlistar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+    btnlistar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/van_icon.png"))); // NOI18N
+    btnlistar.setText("Listar Todos os Veículos Cadastrados");
+    btnlistar.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnlistarActionPerformed(evt);
+      }
+    });
+
     javax.swing.GroupLayout painel_inicialLayout = new javax.swing.GroupLayout(painel_inicial);
     painel_inicial.setLayout(painel_inicialLayout);
     painel_inicialLayout.setHorizontalGroup(
       painel_inicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(painel_inicialLayout.createSequentialGroup()
         .addGap(97, 97, 97)
-        .addGroup(painel_inicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-          .addGroup(painel_inicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnlocar, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(painel_inicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-              .addComponent(btnvender, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-              .addComponent(btncadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-              .addComponent(btnlocar1, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)))
-          .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addContainerGap(257, Short.MAX_VALUE))
+        .addGroup(painel_inicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+          .addComponent(btnvender, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          .addComponent(btncadastrar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          .addComponent(btnlistar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(btnlocar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          .addComponent(btnlocar1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        .addContainerGap(231, Short.MAX_VALUE))
     );
     painel_inicialLayout.setVerticalGroup(
       painel_inicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(painel_inicialLayout.createSequentialGroup()
         .addGap(17, 17, 17)
         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addGap(44, 44, 44)
+        .addGap(18, 18, 18)
         .addComponent(btnlocar1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addGap(18, 18, 18)
         .addComponent(btnlocar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -139,10 +186,58 @@ public class FrmVeiculos extends javax.swing.JFrame {
         .addComponent(btncadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addGap(18, 18, 18)
         .addComponent(btnvender, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addContainerGap(86, Short.MAX_VALUE))
+        .addGap(18, 18, 18)
+        .addComponent(btnlistar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addContainerGap(55, Short.MAX_VALUE))
     );
 
     jTabbedPane1.addTab("Página Inicial", painel_inicial);
+
+    jPanel2.setBackground(new java.awt.Color(204, 204, 204));
+    jPanel2.setPreferredSize(new java.awt.Dimension(800, 600));
+
+    tabelaVeiculos.setBackground(new java.awt.Color(240, 240, 240));
+    tabelaVeiculos.setModel(new javax.swing.table.DefaultTableModel(
+      new Object [][] {
+
+      },
+      new String [] {
+        "Código", "Marca", "Modelo", "Ano", "Categoria", "Placa", "Valor da Compra", "Tipo", "Estado"
+      }
+    ) {
+      boolean[] canEdit = new boolean [] {
+        false, false, false, false, false, true, true, true, true
+      };
+
+      public boolean isCellEditable(int rowIndex, int columnIndex) {
+        return canEdit [columnIndex];
+      }
+    });
+    tabelaVeiculos.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        tabelaVeiculosMouseClicked(evt);
+      }
+    });
+    jScrollPane1.setViewportView(tabelaVeiculos);
+
+    javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+    jPanel2.setLayout(jPanel2Layout);
+    jPanel2Layout.setHorizontalGroup(
+      jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(jPanel2Layout.createSequentialGroup()
+        .addContainerGap()
+        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 745, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addContainerGap(49, Short.MAX_VALUE))
+    );
+    jPanel2Layout.setVerticalGroup(
+      jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(jPanel2Layout.createSequentialGroup()
+        .addContainerGap()
+        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addContainerGap(95, Short.MAX_VALUE))
+    );
+
+    jTabbedPane1.addTab("Veículos Cadastrados", jPanel2);
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
@@ -152,14 +247,15 @@ public class FrmVeiculos extends javax.swing.JFrame {
       .addGroup(layout.createSequentialGroup()
         .addContainerGap()
         .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        .addContainerGap(128, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addGap(18, 18, 18)
-        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addContainerGap())
     );
 
     pack();
@@ -167,7 +263,9 @@ public class FrmVeiculos extends javax.swing.JFrame {
   }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-
+      //Listar todos os veículos
+      listar();
+      
     }//GEN-LAST:event_formWindowActivated
 
   private void btncadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncadastrarActionPerformed
@@ -192,11 +290,21 @@ public class FrmVeiculos extends javax.swing.JFrame {
 
   private void btnlocar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlocar1ActionPerformed
     
-    FrmLocacao telaLocar = new FrmLocacao();
-    telaLocar.setVisible(true);
+    FrmLocacao telaLocacao = new FrmLocacao();
+    telaLocacao.setVisible(true);
     this.dispose();
     
   }//GEN-LAST:event_btnlocar1ActionPerformed
+
+  private void btnlistarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlistarActionPerformed
+        //Lista de veículos
+        jTabbedPane1.setSelectedIndex(1);
+        
+  }//GEN-LAST:event_btnlistarActionPerformed
+
+  private void tabelaVeiculosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaVeiculosMouseClicked
+
+  }//GEN-LAST:event_tabelaVeiculosMouseClicked
 
     /**
      * @param args the command line arguments
@@ -491,13 +599,17 @@ public class FrmVeiculos extends javax.swing.JFrame {
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton btncadastrar;
+  private javax.swing.JButton btnlistar;
   private javax.swing.JButton btnlocar;
   private javax.swing.JButton btnlocar1;
   private javax.swing.JButton btnvender;
   private javax.swing.JLabel jLabel1;
   private javax.swing.JPanel jPanel1;
-  private javax.swing.JTabbedPane jTabbedPane1;
+  private javax.swing.JPanel jPanel2;
+  private javax.swing.JScrollPane jScrollPane1;
+  public javax.swing.JTabbedPane jTabbedPane1;
   private javax.swing.JTextField jTextField1;
   private javax.swing.JPanel painel_inicial;
+  private javax.swing.JTable tabelaVeiculos;
   // End of variables declaration//GEN-END:variables
 }

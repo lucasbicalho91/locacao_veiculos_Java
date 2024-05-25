@@ -32,13 +32,13 @@ public class LocacaoDAO {
   //Atualizar veículo locado
   public Veiculo atualizarVeiculoLocado(int id, int dias, Calendar data, Cliente cliente) {
     try {
-
-      Veiculo veiculo = buscarVeiculoPorId(id);
+      
+      VeiculoDAO veiculoDAO = new VeiculoDAO();
+      Veiculo veiculo = veiculoDAO.buscarVeiculoDisponivelPorCodigo(id);
 
       if (veiculo != null) {
         if (veiculo.getEstado() == Estado.DISPONIVEL) {
           veiculo.locar(dias, data, cliente);
-          System.out.println("Veículo locado: " + veiculo);
         } else {
           JOptionPane.showMessageDialog(null,
                   "Veículo não disponível para locação");
@@ -71,36 +71,40 @@ public class LocacaoDAO {
     return null;
   }
   //Atualizar veículo devolvido
-public Veiculo atualizarVeiculoDevolvido(int idVeiculo, Cliente cliente) {
+
+  public Veiculo atualizarVeiculoDevolvido(Veiculo veiculo, Cliente cliente) {
     try {
-        Veiculo veiculo = buscarVeiculoPorId(idVeiculo);
-
-        if (veiculo != null) {
-            veiculo.devolver();
-
-            String sql = "update tb_veiculos set estado = ? where id = ?";
-            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-                stmt.setString(1, veiculo.getEstado().getDescricao());
-                stmt.setInt(2, idVeiculo);
-                stmt.execute();
-            }
-
-            sql = "update tb_clientes set veiculo_locado = ? where id = ?";
-            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-                stmt.setInt(1, cliente.getLocado() - 1);
-                stmt.setInt(2, cliente.getId());
-                stmt.execute(); 
-            }
-            return veiculo;
+      if (veiculo != null) {
+        if (veiculo.getEstado() == Estado.LOCADO) {
+          veiculo.devolver();
         } else {
-            JOptionPane.showMessageDialog(null, "Veículo não disponível para locação ou devolução");
+          JOptionPane.showMessageDialog(null,
+                  "Veículo não disponível para devolução");
+          return null;
         }
+        String sql = "update tb_veiculos set estado = ? where id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+          stmt.setString(1, veiculo.getEstado().getDescricao());
+          stmt.setInt(2, veiculo.getId());
+          stmt.execute();
+        }
+
+        sql = "update tb_clientes set veiculo_locado = ? where id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+          stmt.setInt(1, cliente.getLocado());
+          stmt.setInt(2, cliente.getId());
+          stmt.execute();
+        }
+        return veiculo;
+      } else {
+        JOptionPane.showMessageDialog(null, "Veículo não disponível para locação ou devolução");
+      }
     } catch (SQLException erro) {
-        JOptionPane.showMessageDialog(null, "Erro: " + erro);
+      JOptionPane.showMessageDialog(null, "Erro: " + erro);
     }
 
     return null;
-}
+  }
 
   //Cadastrar locação
   public void cadastrarLocacao(Locacao locacao, int idVeiculo) {
@@ -128,7 +132,7 @@ public Veiculo atualizarVeiculoDevolvido(int idVeiculo, Cliente cliente) {
   }
   //Excluir Locação
   public void excluirLocacao (int id) {
-          try {String sql = "delete from tb_locacao where id_veiculo = ?";
+          try {String sql = "delete from tb_locacao where id = ?";
           try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, id);
             
@@ -143,32 +147,7 @@ public Veiculo atualizarVeiculoDevolvido(int idVeiculo, Cliente cliente) {
           }   
   }
 
-  //Retorna a última locação
-  public int retornaUltimaLocacao() {
-
-    try {
-      int idLocacao = 0;
-
-      String sql = "select max(id) id from tb_locacao";
-      PreparedStatement stmt = conn.prepareStatement(sql);
-
-      ResultSet rs = stmt.executeQuery();
-
-      if (rs.next()) {
-
-        Locacao locacao = new Locacao();
-        locacao.setId(rs.getInt("id"));
-        idLocacao = locacao.getId();
-      }
-      return idLocacao;
-
-    } catch (SQLException e) {
-      throw new RuntimeException();
-    }
-
-  }
-
-public Veiculo buscarVeiculoPorId(int id) {
+public Veiculo buscarVeiculoLocadoPorId(int id) {
     String sql = "SELECT v.*, l.id AS id_locacao, l.id_cliente, l.dias, l.valor, l.data_locacao, c.nome AS nome_cliente " +
                  "FROM tb_veiculos v " +
                  "LEFT JOIN tb_locacao l ON v.id = l.id_veiculo " +

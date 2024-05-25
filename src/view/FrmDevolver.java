@@ -171,7 +171,8 @@ public class FrmDevolver extends javax.swing.JFrame {
     if (linha != -1) { 
       int idVeiculo = Integer.parseInt(tabelaLocacao.getValueAt(linha, 9).toString());
       LocacaoDAO locacaoDAO = new LocacaoDAO();
-      Veiculo veiculo = locacaoDAO.buscarVeiculoPorId(idVeiculo);
+      Veiculo veiculo = locacaoDAO.buscarVeiculoLocadoPorId(idVeiculo);
+      int idLocacao = veiculo.getLocacao().getId();
       
       int idCliente = veiculo.getLocacao().getCliente().getId();
       ClienteDAO clienteDAO = new ClienteDAO();
@@ -189,21 +190,20 @@ public class FrmDevolver extends javax.swing.JFrame {
         return; // 
       }
       
-      locacaoDAO.atualizarVeiculoDevolvido(idVeiculo, cliente);
-      locacaoDAO.excluirLocacao(idVeiculo);
+      locacaoDAO.excluirLocacao(idLocacao);
+      locacaoDAO.atualizarVeiculoDevolvido(veiculo, cliente);
       
       DefaultTableModel modelo = (DefaultTableModel) tabelaLocacao.getModel();
       modelo.setRowCount(0);
 
     } else {
-      JOptionPane.showMessageDialog(null, "Nenhuma linha de cliente ou veículo selecionada");
+      JOptionPane.showMessageDialog(null, "Nenhuma linha selecionada");
     }
   }//GEN-LAST:event_btndevolverActionPerformed
 
   private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
     // Listar todos os veículos locados
     VeiculoDAO veiculoDAO = new VeiculoDAO();
-    LocacaoDAO locacaoDAO = new LocacaoDAO();
     
     List<Veiculo> veiculos = veiculoDAO.listarVeiculosLocados();
     DefaultTableModel dados = (DefaultTableModel) tabelaLocacao.getModel();

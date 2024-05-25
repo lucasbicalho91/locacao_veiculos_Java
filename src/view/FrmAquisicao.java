@@ -26,34 +26,8 @@ import utilities.Utils;
  * @author Lucas
  */
 public class FrmAquisicao extends javax.swing.JFrame {
-  
-      public void listar() {
-        NumberFormat nf = NumberFormat.getNumberInstance(Locale.getDefault());
-        DecimalFormat df = (DecimalFormat) nf;
-        df.applyPattern("#,##0.00");
 
-        VeiculoDAO dao = new VeiculoDAO();
-        List<Veiculo> veiculos = dao.listarVeiculos();
-        DefaultTableModel dados = (DefaultTableModel) tabelaVeiculos.getModel();
-        dados.setNumRows(0);
-        
-        for (Veiculo v : veiculos) {
-            dados.addRow(new Object[] {
-                v.getId(),
-                v.getMarca(),
-                v.getModelo(),
-                v.getAno(),
-                v.getCategoria().getDescricao(),
-                v.getPlaca(),
-                df.format(v.getValorCompra()),
-                v.getTipo(),
-                v.getEstado().getDescricao(),
-                
-            });
-        }  
-    }
       
-
     /**
      * Creates new form FrmAquisicao
      */
@@ -89,13 +63,9 @@ public class FrmAquisicao extends javax.swing.JFrame {
     btncadastrar = new javax.swing.JButton();
     jLabel6 = new javax.swing.JLabel();
     cbtipo = new javax.swing.JComboBox<>();
-    painelLista = new javax.swing.JPanel();
-    jScrollPane1 = new javax.swing.JScrollPane();
-    tabelaVeiculos = new javax.swing.JTable();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     setTitle("Cadastro de Veículo");
-    setPreferredSize(new java.awt.Dimension(900, 700));
     addWindowListener(new java.awt.event.WindowAdapter() {
       public void windowActivated(java.awt.event.WindowEvent evt) {
         formWindowActivated(evt);
@@ -340,51 +310,6 @@ public class FrmAquisicao extends javax.swing.JFrame {
 
     painelVeiculo.addTab("Dados do Veículo", painelDados);
 
-    painelLista.setBackground(new java.awt.Color(255, 255, 255));
-
-    tabelaVeiculos.setBackground(new java.awt.Color(240, 240, 240));
-    tabelaVeiculos.setModel(new javax.swing.table.DefaultTableModel(
-      new Object [][] {
-
-      },
-      new String [] {
-        "Código", "Marca", "Modelo", "Ano", "Categoria", "Placa", "Valor da Compra", "Tipo", "Estado"
-      }
-    ) {
-      boolean[] canEdit = new boolean [] {
-        false, false, false, false, false, true, true, true, true
-      };
-
-      public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return canEdit [columnIndex];
-      }
-    });
-    tabelaVeiculos.addMouseListener(new java.awt.event.MouseAdapter() {
-      public void mouseClicked(java.awt.event.MouseEvent evt) {
-        tabelaVeiculosMouseClicked(evt);
-      }
-    });
-    jScrollPane1.setViewportView(tabelaVeiculos);
-
-    javax.swing.GroupLayout painelListaLayout = new javax.swing.GroupLayout(painelLista);
-    painelLista.setLayout(painelListaLayout);
-    painelListaLayout.setHorizontalGroup(
-      painelListaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGroup(painelListaLayout.createSequentialGroup()
-        .addGap(20, 20, 20)
-        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 840, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addContainerGap(15, Short.MAX_VALUE))
-    );
-    painelListaLayout.setVerticalGroup(
-      painelListaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGroup(painelListaLayout.createSequentialGroup()
-        .addGap(23, 23, 23)
-        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addContainerGap(70, Short.MAX_VALUE))
-    );
-
-    painelVeiculo.addTab("Lista de Todos os Veículos Cadastrados", painelLista);
-
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
@@ -401,141 +326,135 @@ public class FrmAquisicao extends javax.swing.JFrame {
         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addComponent(painelVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 537, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addContainerGap(40, Short.MAX_VALUE))
+        .addContainerGap(35, Short.MAX_VALUE))
     );
 
     pack();
     setLocationRelativeTo(null);
   }// </editor-fold>//GEN-END:initComponents
 
-    private void tabelaVeiculosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaVeiculosMouseClicked
-       
- 
-    }//GEN-LAST:event_tabelaVeiculosMouseClicked
-
-    private void cbtipoAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbtipoAncestorAdded
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbtipoAncestorAdded
-
-    private void btncadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncadastrarActionPerformed
-        // cadastrar um novo veículo
-        Veiculo veiculo = null;
-        String tipo = cbtipo.getSelectedItem().toString();
-        String numero = txtvalor.getText().replace(",", ".");
-        
-        if (cbtipo.getSelectedItem() == "Automóvel") {
-            veiculo = new Automovel();
-        }
-        else if (cbtipo.getSelectedItem() == "Motocicleta") {
-            veiculo = new Motocicleta();
-        }
-        else if (cbtipo.getSelectedItem() == "Van") {
-            veiculo = new Van();       
-        }
-        
-        if (veiculo != null) {
-            veiculo.setMarca(Marca.valueOf(cbmarca.getSelectedItem().toString()));
-            veiculo.setCategoria(Categoria.fromDescricao(cbcategoria.getSelectedItem().toString()));
-            veiculo.setAno(Integer.parseInt(txtano.getText()));
-            veiculo.setPlaca(txtplaca.getText());
-            veiculo.setValorCompra(Double.parseDouble(numero));
-            
-            if (veiculo instanceof Automovel automovel) {
-                automovel.setModelo(ModeloAutomovel.valueOf(cbmodelo.getSelectedItem().toString()));
-            } else if (veiculo instanceof Motocicleta motocicleta) {
-                motocicleta.setModelo(ModeloMotocicleta.valueOf(cbmodelo.getSelectedItem().toString()));
-            } else if (veiculo instanceof Van van) {
-                van.setModelo(ModeloVan.valueOf(cbmodelo.getSelectedItem().toString()));
-            }
-            
-        }
-
-            VeiculoDAO dao = new VeiculoDAO();
-            dao.cadastrarVeiculo (veiculo, tipo);
-        
-        new Utils().limparCampos(painelDados);
-        
-    }//GEN-LAST:event_btncadastrarActionPerformed
-
-    private void cbmarcaAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbmarcaAncestorAdded
-
-        cbmarca.removeAllItems();
-
-        for (Marca marca : Marca.values()) {
-            cbmarca.addItem(marca.toString());
-        }
-        cbmarca.setSelectedItem(null);
-        
-    }//GEN-LAST:event_cbmarcaAncestorAdded
-
-    private void cbmodeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbmodeloActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbmodeloActionPerformed
-
-    private void cbmodeloAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbmodeloAncestorAdded
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbmodeloAncestorAdded
-
-    private void cbcategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbcategoriaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbcategoriaActionPerformed
-
-    private void cbcategoriaAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbcategoriaAncestorAdded
-
-        cbcategoria.removeAllItems();
-
-        for (Categoria categoria : Categoria.values()) {
-            cbcategoria.addItem(categoria.getDescricao());
-        }
-        cbcategoria.setSelectedItem(null);
-    }//GEN-LAST:event_cbcategoriaAncestorAdded
-
-    private void cbtipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbtipoMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbtipoMouseClicked
-
-    private void cbtipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbtipoItemStateChanged
-        
-        cbmodelo.removeAllItems();
-        
-        if (cbtipo.getSelectedItem() == "Automóvel") {
-            for (ModeloAutomovel modelo : ModeloAutomovel.values()) {
-                cbmodelo.addItem(modelo.toString());
-            }
-        }
-        
-        else if (cbtipo.getSelectedItem() == "Motocicleta") {
-            for (ModeloMotocicleta modelo : ModeloMotocicleta.values()) {
-                cbmodelo.addItem(modelo.toString());
-            }
-        }
-        
-        else if (cbtipo.getSelectedItem() == "Van") {
-            for (ModeloVan modelo : ModeloVan.values()) {
-                cbmodelo.addItem(modelo.toString());
-            }
-        }
-        
-        cbmodelo.setSelectedItem(null);
-        
-    }//GEN-LAST:event_cbtipoItemStateChanged
-
-    private void txtplacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtplacaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtplacaActionPerformed
-
   private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        // Carrega a lista
-        listar();
+       // TODO add your handling code here:
   }//GEN-LAST:event_formWindowActivated
 
   private void cbtipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbtipoActionPerformed
     // TODO add your handling code here:
   }//GEN-LAST:event_cbtipoActionPerformed
 
+  private void cbtipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbtipoMouseClicked
+    // TODO add your handling code here:
+  }//GEN-LAST:event_cbtipoMouseClicked
+
+  private void cbtipoAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbtipoAncestorAdded
+    // TODO add your handling code here:
+  }//GEN-LAST:event_cbtipoAncestorAdded
+
+  private void cbtipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbtipoItemStateChanged
+
+    cbmodelo.removeAllItems();
+
+    if (cbtipo.getSelectedItem() == "Automóvel") {
+      for (ModeloAutomovel modelo : ModeloAutomovel.values()) {
+        cbmodelo.addItem(modelo.toString());
+      }
+    }
+
+    else if (cbtipo.getSelectedItem() == "Motocicleta") {
+      for (ModeloMotocicleta modelo : ModeloMotocicleta.values()) {
+        cbmodelo.addItem(modelo.toString());
+      }
+    }
+
+    else if (cbtipo.getSelectedItem() == "Van") {
+      for (ModeloVan modelo : ModeloVan.values()) {
+        cbmodelo.addItem(modelo.toString());
+      }
+    }
+
+    cbmodelo.setSelectedItem(null);
+
+  }//GEN-LAST:event_cbtipoItemStateChanged
+
+  private void btncadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncadastrarActionPerformed
+    // cadastrar um novo veículo
+    Veiculo veiculo = null;
+    String tipo = cbtipo.getSelectedItem().toString();
+    String numero = txtvalor.getText().replace(",", ".");
+
+    if (cbtipo.getSelectedItem() == "Automóvel") {
+      veiculo = new Automovel();
+    }
+    else if (cbtipo.getSelectedItem() == "Motocicleta") {
+      veiculo = new Motocicleta();
+    }
+    else if (cbtipo.getSelectedItem() == "Van") {
+      veiculo = new Van();
+    }
+
+    if (veiculo != null) {
+      veiculo.setMarca(Marca.valueOf(cbmarca.getSelectedItem().toString()));
+      veiculo.setCategoria(Categoria.fromDescricao(cbcategoria.getSelectedItem().toString()));
+      veiculo.setAno(Integer.parseInt(txtano.getText()));
+      veiculo.setPlaca(txtplaca.getText());
+      veiculo.setValorCompra(Double.parseDouble(numero));
+
+      if (veiculo instanceof Automovel automovel) {
+        automovel.setModelo(ModeloAutomovel.valueOf(cbmodelo.getSelectedItem().toString()));
+      } else if (veiculo instanceof Motocicleta motocicleta) {
+        motocicleta.setModelo(ModeloMotocicleta.valueOf(cbmodelo.getSelectedItem().toString()));
+      } else if (veiculo instanceof Van van) {
+        van.setModelo(ModeloVan.valueOf(cbmodelo.getSelectedItem().toString()));
+      }
+
+    }
+
+    VeiculoDAO dao = new VeiculoDAO();
+    dao.cadastrarVeiculo (veiculo, tipo);
+
+    new Utils().limparCampos(painelDados);
+
+  }//GEN-LAST:event_btncadastrarActionPerformed
+
   private void cbmarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbmarcaActionPerformed
     // TODO add your handling code here:
   }//GEN-LAST:event_cbmarcaActionPerformed
+
+  private void cbmarcaAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbmarcaAncestorAdded
+
+    cbmarca.removeAllItems();
+
+    for (Marca marca : Marca.values()) {
+      cbmarca.addItem(marca.toString());
+    }
+    cbmarca.setSelectedItem(null);
+
+  }//GEN-LAST:event_cbmarcaAncestorAdded
+
+  private void txtplacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtplacaActionPerformed
+    // TODO add your handling code here:
+  }//GEN-LAST:event_txtplacaActionPerformed
+
+  private void cbmodeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbmodeloActionPerformed
+    // TODO add your handling code here:
+  }//GEN-LAST:event_cbmodeloActionPerformed
+
+  private void cbmodeloAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbmodeloAncestorAdded
+    // TODO add your handling code here:
+  }//GEN-LAST:event_cbmodeloAncestorAdded
+
+  private void cbcategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbcategoriaActionPerformed
+    // TODO add your handling code here:
+  }//GEN-LAST:event_cbcategoriaActionPerformed
+
+  private void cbcategoriaAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbcategoriaAncestorAdded
+
+    cbcategoria.removeAllItems();
+
+    for (Categoria categoria : Categoria.values()) {
+      cbcategoria.addItem(categoria.getDescricao());
+    }
+    cbcategoria.setSelectedItem(null);
+  }//GEN-LAST:event_cbcategoriaAncestorAdded
 
   private void txtvalorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtvalorActionPerformed
     // TODO add your handling code here:
@@ -591,11 +510,8 @@ public class FrmAquisicao extends javax.swing.JFrame {
   private javax.swing.JLabel jLabel6;
   private javax.swing.JLabel jLabel8;
   private javax.swing.JPanel jPanel1;
-  private javax.swing.JScrollPane jScrollPane1;
   private javax.swing.JPanel painelDados;
-  private javax.swing.JPanel painelLista;
   private javax.swing.JTabbedPane painelVeiculo;
-  private javax.swing.JTable tabelaVeiculos;
   private javax.swing.JTextField txtano;
   private javax.swing.JFormattedTextField txtplaca;
   private javax.swing.JFormattedTextField txtvalor;

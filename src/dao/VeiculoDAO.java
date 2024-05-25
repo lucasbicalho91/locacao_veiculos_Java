@@ -157,17 +157,13 @@ public class VeiculoDAO {
           stmt.setInt(1, id);
           ResultSet rs = stmt.executeQuery();
           if (rs.next()) {
-              String estado = rs.getString("estado");
-              if (estado.equals(Estado.DISPONIVEL.getDescricao())) {
+              
+              
                   Veiculo veiculo = VeiculoFactory.criarVeiculo(rs);
                   if (veiculo != null) {
                       VeiculoFactory.popularVeiculo(rs, veiculo);
                       return veiculo;
                   }
-              } else {
-                  JOptionPane.showMessageDialog(null, 
-                          "Esse veículo não está disponível para venda");
-              }
           } 
       } catch (SQLException erro) {
           JOptionPane.showMessageDialog(null, "Erro: " + erro);

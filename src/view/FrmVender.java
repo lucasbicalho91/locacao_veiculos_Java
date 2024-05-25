@@ -6,6 +6,7 @@ package view;
 
 import dao.VeiculoDAO;
 import enums.Categoria;
+import enums.Estado;
 import enums.Marca;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -328,26 +329,33 @@ public class FrmVender extends javax.swing.JFrame {
 
     VeiculoDAO dao = new VeiculoDAO();
     Veiculo veiculo = dao.buscarVeiculoDisponivelPorCodigo(id);
-    
+
     if (veiculo != null) {
       DefaultTableModel dados = (DefaultTableModel) tabelaVeiculos.getModel();
       Double valorVenda = veiculo.getValorParaVenda();
+      String estado = veiculo.getEstado().getDescricao();
       dados.setNumRows(0);
-      dados.addRow(new Object[]{
-        veiculo.getId(),
-        veiculo.getMarca(),
-        veiculo.getModelo(),
-        veiculo.getAno(),
-        veiculo.getPlaca(),
-        df.format(valorVenda),
-        veiculo.getEstado().getDescricao(),});
-        
-        tabelaVeiculos.setVisible(true);
+      if (estado.equals(Estado.DISPONIVEL.getDescricao())) {
+        dados.addRow(new Object[]{
+          veiculo.getId(),
+          veiculo.getMarca(),
+          veiculo.getModelo(),
+          veiculo.getAno(),
+          veiculo.getPlaca(),
+          df.format(valorVenda),
+          estado
+        });
+      } else {
+        JOptionPane.showMessageDialog(null,
+                "Esse veículo não está disponível para venda");
+      }
+
+      tabelaVeiculos.setVisible(true);
     } else {
-              JOptionPane.showMessageDialog(null, "Veículo não encontrado.");
-              tabelaVeiculos.setVisible(false);
-              txtcodigo.setText("0");
-          }
+      JOptionPane.showMessageDialog(null, "Veículo não encontrado.");
+      tabelaVeiculos.setVisible(false);
+      txtcodigo.setText("0");
+    }
 
      
   }//GEN-LAST:event_btnbuscaActionPerformed

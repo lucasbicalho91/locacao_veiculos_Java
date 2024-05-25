@@ -394,21 +394,27 @@ public class FrmFuncionarios extends javax.swing.JFrame {
   }// </editor-fold>//GEN-END:initComponents
 
     private void btnexcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnexcluirActionPerformed
-        // Excluir funcionáro
+      // Excluir funcionáro
       int op;
 
-      op = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esse cliente?");
+      op = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esse funcionário?");
 
-      if (op == 0) {
-        Funcionario funcionario = new Funcionario();
+      if (op == JOptionPane.YES_OPTION) {
 
-        funcionario.setId(Integer.parseInt(txtcodigo.getText()));
+        int idFunc = Integer.parseInt(txtcodigo.getText());
 
         FuncionarioDAO dao = new FuncionarioDAO();
-        dao.excluirFuncionario(funcionario);
+        Funcionario funcionario = dao.buscarFuncionarioPorCodigo(idFunc);
+        if (funcionario.getId() != 0) {
+          dao.excluirFuncionario(funcionario);
+          new Utils().limparCampos(painel_dados);
+          txtcodigo.setText("0");
+        } else {
+          JOptionPane.showMessageDialog(null, 
+                  "Não foi encontrado nenhum funcionário com esse código");
+        }
 
-        new Utils().limparCampos(painel_dados);
-      } 
+      }
     }//GEN-LAST:event_btnexcluirActionPerformed
 
     private void btncadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncadastrarActionPerformed
@@ -556,6 +562,7 @@ public class FrmFuncionarios extends javax.swing.JFrame {
     private void btnlimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlimparActionPerformed
         // limpar os campos
         new Utils().limparCampos(painel_dados); 
+        txtcodigo.setText("0");
     }//GEN-LAST:event_btnlimparActionPerformed
 
     /**

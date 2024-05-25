@@ -563,21 +563,27 @@ public class FrmClientes extends javax.swing.JFrame {
 
       op = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esse cliente?");
 
-      if (op == 0) {
-        Cliente cliente = new Cliente();
+      if (op == JOptionPane.YES_OPTION) {
+        int idCliente = Integer.parseInt(txtcodigo.getText());
 
-        cliente.setId(Integer.parseInt(txtcodigo.getText()));
-        if ("Não".equals(txtlocado.getText())) {
-          ClienteDAO dao = new ClienteDAO();
-          dao.excluirCliente(cliente);
+        ClienteDAO dao = new ClienteDAO();
+        Cliente cliente = dao.buscarClientePorCodigo(idCliente);
+        if (cliente.getId() != 0) {
+          if ("Não".equals(txtlocado.getText())) {
+            dao.excluirCliente(cliente);
+          } else {
+            JOptionPane.showMessageDialog(null,
+                    "Não é possível excluir um cliente que possui veículo locado");
+            return;
+          }
+          new Utils().limparCampos(painel_dados);
+          txtcodigo.setText("0");
         } else {
-          JOptionPane.showMessageDialog(null, 
-                  "Não é possível excluir um cliente que possui veículo locado");
-          return;
+          JOptionPane.showMessageDialog(null,
+                  "Não foi encontrado nenhum cliente com esse código");
         }
-        new Utils().limparCampos(painel_dados);
-        txtcodigo.setText("0");
       }
+
 
     }//GEN-LAST:event_btnexcluirActionPerformed
 
@@ -791,6 +797,7 @@ public class FrmClientes extends javax.swing.JFrame {
     private void btnnovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnovoActionPerformed
         // limpar os campos
         new Utils().limparCampos(painel_dados); 
+        txtcodigo.setText("0");
     }//GEN-LAST:event_btnnovoActionPerformed
 
     private void txtcepKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcepKeyPressed

@@ -2,7 +2,7 @@ CREATE DATABASE locadora_veiculos;
 
 CREATE USER 'usuariolocadora'@'%' IDENTIFIED BY '1234';
 
-GRANT ALL ON *.* TO 'usuarioLocadora'@'%' WITH GRANT OPTION;
+GRANT ALL ON *.* TO 'usuariolocadora'@'%' WITH GRANT OPTION;
 
 flush privileges;
 

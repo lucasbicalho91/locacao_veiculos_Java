@@ -1,0 +1,69 @@
+CREATE DATABASE locadora_veiculos;
+
+CREATE USER 'usuariolocadora'@'%' IDENTIFIED BY '1234';
+
+GRANT ALL ON *.* TO 'usuarioLocadora'@'%' WITH GRANT OPTION;
+
+flush privileges;
+
+/***** TABELA CLIENTES *****/
+CREATE TABLE tb_clientes (
+  id int auto_increment primary key,
+  nome varchar(100),
+  sobrenome varchar(100),
+  rg varchar (30),
+  cpf varchar (14),
+  email varchar(200) not null,
+  celular varchar(30),
+  cep varchar(100),
+  endereco varchar (255),
+  numero int,
+  complemento varchar (200),
+  bairro varchar (100),
+  cidade varchar (100),
+  uf varchar (2),
+  veiculo_locado int
+);
+
+/*****************/
+
+/***** TABELA FUNCIONÁRIOS *****/
+CREATE TABLE tb_funcionarios (
+  id int auto_increment primary key,
+  nome varchar(100),
+  sobrenome varchar(100),
+  email varchar(200) not null,
+  senha varchar(10) not null,
+  cargo varchar(100),
+  celular varchar(30)
+);
+
+/*****************/
+
+/***** TABELA VEÍCULOS *****/
+CREATE TABLE tb_veiculos (
+    id int auto_increment primary key,
+    marca varchar(50) not null,
+    modelo varchar(50) not null,	
+    categoria varchar(50),
+    placa varchar(10) not null,
+    ano int not null,
+    valor_compra decimal(10, 2) not null,
+    tipo_veiculo varchar(50) not null,
+    estado varchar(50) not null
+);
+
+/*****************/
+/***** TABELA LOCAÇÃO *****/
+CREATE TABLE tb_locacao (     
+	
+    id int auto_increment primary key,     
+    dias int not null,     
+    valor double not null,    
+    data_locacao date not null,     
+    id_cliente int not null,     
+    id_veiculo int not null,     
+    FOREIGN KEY (id_cliente) REFERENCES tb_clientes(id),     
+    FOREIGN KEY (id_veiculo) REFERENCES tb_veiculos(id)
+);
+
